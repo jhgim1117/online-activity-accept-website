@@ -11,8 +11,8 @@ def login_post():
     return render_template('user/login.html')
 
 def signup_get():
-    pass
+    return render_template('user/signup.html')
 
 def signup_post():
-    
+    print(100)
     return render_template('user/signup.html')
