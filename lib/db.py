@@ -15,11 +15,21 @@ def db_execute(exec, v=()):
     conn.close()
     return data
 
+def check_table_info(tbl_name):
+    table_info = db_execute("PRAGMA table_info(" + tbl_name + ")")
+    for column_info in table_info:
+        print(f"column name : {column_info['name']}")
+        print(f"type of data : {column_info['type']}")
+        print('------------------')
+
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
 ##for learning query of sqlite: google "sqlite query"
 
-# db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INT NOT NULL, generation INT NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
+# create table
+# db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
 
-print(db_execute("SELECT * FROM user WHERE rowid = 0"))
+# check db info
+check_table_info('user')
+# print(len(db_execute("PRAGMA table_info(user)")))
