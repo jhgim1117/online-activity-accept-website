@@ -20,6 +20,8 @@ def db_execute(exec, v=()):
 
 ##for learning query of sqlite: google "sqlite query"
 
+# create table
 # db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INT NOT NULL, generation INT NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
 
-print(db_execute("SELECT * FROM user WHERE rowid = 0"))
+# check db info
+# print(db_execute("PRAGMA table_info(user)"))
