@@ -22,14 +22,18 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
+def user_insert(name, num, generation, nickname, pw):
+    db_execute(f"insert into user (name, num, generation, nickname, pw) values ('{name}', '{num}', '{generation}', '{nickname}', '{pw}');")
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
 ##for learning query of sqlite: google "sqlite query"
 
+if __name__ == '__main__':
+    
 # create table
 # db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
 
 # check db info
-check_table_info('user')
-# print(len(db_execute("PRAGMA table_info(user)")))
+    # check_table_info('user')
+    print(db_execute("SELECT * FROM user"))
