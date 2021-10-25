@@ -15,4 +15,4 @@ def signup_get():
 
 def signup_post():
     
-    print("100")
+    return render_template('user/signup.html')
