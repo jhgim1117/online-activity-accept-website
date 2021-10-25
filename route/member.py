@@ -9,3 +9,10 @@ def login_post():
     print(pw)
     
     return render_template('user/login.html')
+
+def signup_get():
+    pass
+
+def signup_post():
+    
+    print("100")

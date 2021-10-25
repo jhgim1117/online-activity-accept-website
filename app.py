@@ -13,5 +13,12 @@ def login():
     else:
         return member.login_post()
 
+@app.route("/signup", methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return member.signup_get()
+    else:
+        return member.signup_post()
+
 if __name__ == '__main__':
     app.run(debug=True)
