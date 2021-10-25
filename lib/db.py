@@ -32,4 +32,4 @@ def check_table_info(tbl_name):
 
 # check db info
 check_table_info('user')
-print(len(db_execute("PRAGMA table_info(user)")))
+# print(len(db_execute("PRAGMA table_info(user)")))
