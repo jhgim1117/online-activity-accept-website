@@ -28,7 +28,7 @@ def check_table_info(tbl_name):
 ##for learning query of sqlite: google "sqlite query"
 
 # create table
-# db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INT NOT NULL, generation INT NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
+# db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
 
 # check db info
 check_table_info('user')
