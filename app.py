@@ -14,7 +14,7 @@ def login():
         return member.login_post()
 
 @app.route("/signup", methods=['GET', 'POST'])
-def login():
+def signup():
     if request.method == 'GET':
         return member.signup_get()
     else:
