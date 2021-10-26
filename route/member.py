@@ -24,4 +24,4 @@ def signup_post():
     num = request.form["num"]
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
-    return render_template('user/signup.html')
+    return render_template('user/login.html', signup_success = 1)
