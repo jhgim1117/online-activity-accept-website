@@ -7,7 +7,12 @@
     <title>test</title>
 </head>
 <body>
-    <p>hello world!</p>
-    <p>로그인 정보: {{user_id}}</p>
+    <a href="/login">로그인</a>
+    <a href="/signup">회원가입</a>
+    {% if nickname %}
+        <p>{{nickname}}! Hello World!</p>
+    {% else %}
+        <p>Hello World!</p>
+    {% endif %}
 </body>
 </html>

@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, session
+from lib import db
 from route import member
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
 def index():
-    user_id =''
+    nickname = ''
     if 'user_id' in session:
         user_id=session['user_id']
-    return render_template('index.html', user_id=user_id)
+        nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
+    return render_template('index.html', nickname=nickname)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
