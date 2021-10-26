@@ -23,7 +23,7 @@ def check_table_info(tbl_name):
         print('------------------')
 
 def user_insert(name, num, generation, nickname, pw):
-    db_execute(f"insert into user (name, num, generation, nickname, pw) values ('{name}', '{num}', '{generation}', '{nickname}', '{pw}');")
+    db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, pw))
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
