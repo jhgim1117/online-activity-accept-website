@@ -7,6 +7,11 @@ def login_get():
 
 def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
+    id_list = db.db_execute("SELECT id FROM user;")
+    if id in id_list:
+        pass
+    else:
+        return '<script>alert("존재하지 않는 ID입니다")</script>'
     hashed_pw = db.db_execute('SELECT pw FROM user WHERE nickname=?', (id,))[0]['pw']
     if bcrypt.checkpw(plain_pw.encode('utf-8'),hashed_pw.encode('utf-8')):
         return '<script>alert("성공");</script>'
