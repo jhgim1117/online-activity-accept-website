@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, session
 from lib import db
 import bcrypt
+import datetime
 
 def login_get():
     status=0
@@ -32,6 +33,24 @@ def signup_post():
     name = request.form["name"]
     generation = request.form["generation"]
     num = request.form["num"]
+    now = datetime.datetime.now()
+    
+    able_generation = [36, 37, 38]
+    if now.year == 2021:
+        if generation in able_generation:
+            pass
+        else:
+            pass #경고 메시지
+    else:
+        for i in range(3):
+            able_generation[i] += (now.year-2021)
+        if generation in able_generation:
+            pass
+        else:
+            pass #경고 메시지
+
+    if not(name or plain_pw or name or generation or num):
+        pass #경고 메시지
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
     return redirect('/login?signup=1')
