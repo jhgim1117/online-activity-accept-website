@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 from lib import db
 from route import member
-from route.admin import user_list, token
+from route.admin import user_list
 
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
@@ -41,7 +41,7 @@ def signout():
 
 @app.route("/configdata", methods=['GET','POST'])
 def configdata():
-    if request.method == 'GET':
+    if request.method == 'POST':
         user_id=session['user_id']
         #이름 학번 기수 아이디 가져오기
         nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
@@ -54,14 +54,14 @@ def configdata():
     else:
         pass
 
-
+'''
 @app.route("/admin/token", methods=['GET', 'POST'])
 def token():
     if request.method == 'GET':
         return token.token()
     else:
         return token
-
+'''
 
 if __name__ == '__main__':
     app.run(debug=True)
