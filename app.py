@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session
+from werkzeug.utils import redirect
 from lib import db
 from route import member
 app = Flask(__name__)
@@ -24,6 +25,14 @@ def signup():
         return member.signup_get()
     else:
         return member.signup_post()
+
+@app.route("/signout", methods=['GET', 'POST'])
+def signout():
+    if request.method == 'GET':
+        return member.signout_get() #미구현
+    else:
+        session.pop('user_id', None)
+        return redirect("/")
 
 if __name__ == '__main__':
     app.run(debug=True)

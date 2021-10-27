@@ -49,3 +49,8 @@ def signup_post():
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
     return redirect('/login?signup=1')
+
+def signout_get():
+    pass
+def signout_post():
+    pass
