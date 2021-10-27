@@ -2,12 +2,8 @@ from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 from lib import db
 from route import member
-<<<<<<< HEAD
 from route.admin import user_list, token
 
-=======
-from route.admin import user_list
->>>>>>> 3af0ec5c5b69b95b1041c5455a92ef0a881af6f1
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -32,7 +28,6 @@ def signup():
     else:
         return member.signup_post()
 
-<<<<<<< HEAD
 
 @app.route("/admin/user_list")
 def user_list():
@@ -43,19 +38,6 @@ def signout():
     session.pop('user_id', None)
     return redirect("/")
 
-@app.route("/configdata", methods=['get','POST'])
-def configdata():
-    user_id=session['user_id']
-    #이름 학번 기수 아이디 가져오기
-    nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
-    name = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['name']
-    num = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['num']
-    generation = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['generation']
-=======
-@app.route("/admin/user_list")
-def user_list():
-    return user_list.show_user_list()
->>>>>>> 3af0ec5c5b69b95b1041c5455a92ef0a881af6f1
 
 @app.route("/configdata", methods=['GET','POST'])
 def configdata():
