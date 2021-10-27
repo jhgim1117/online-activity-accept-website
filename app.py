@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, session
-from werkzeug.utils import redirect
 from lib import db
-from route import member
+from route import member, user_list
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -26,10 +25,9 @@ def signup():
     else:
         return member.signup_post()
 
-@app.route("/signout", methods=['POST'])
-def signout():
-    session.pop('user_id', None)
-    return redirect("/")
+@app.route("/admin/user_list")
+def admin():
+    return user_list.show_user_list()
 
 @app.route("/configdata", methods=['get','POST'])
 def configdata():
