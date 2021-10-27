@@ -2,8 +2,12 @@ from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 from lib import db
 from route import member
+<<<<<<< HEAD
 from route.admin import user_list, token
 
+=======
+from route.admin import user_list
+>>>>>>> 3af0ec5c5b69b95b1041c5455a92ef0a881af6f1
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -28,6 +32,7 @@ def signup():
     else:
         return member.signup_post()
 
+<<<<<<< HEAD
 
 @app.route("/admin/user_list")
 def user_list():
@@ -46,10 +51,26 @@ def configdata():
     name = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['name']
     num = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['num']
     generation = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['generation']
+=======
+@app.route("/admin/user_list")
+def user_list():
+    return user_list.show_user_list()
+>>>>>>> 3af0ec5c5b69b95b1041c5455a92ef0a881af6f1
 
-    if 'user_id' in session: #로그인 상태일때만
-        return render_template('configdata.html', nickname=nickname, name=name, num=num, generation=generation)
+@app.route("/configdata", methods=['GET','POST'])
+def configdata():
+    if request.method == 'GET':
+        user_id=session['user_id']
+        #이름 학번 기수 아이디 가져오기
+        nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
+        name = db.db_execute('SELECT name FROM user WHERE id=?', (user_id,))[0]['name']
+        num = db.db_execute('SELECT num FROM user WHERE id=?', (user_id,))[0]['num']
+        generation = db.db_execute('SELECT generation FROM user WHERE id=?', (user_id,))[0]['generation']
 
+        if 'user_id' in session: #로그인 상태일때만
+            return render_template('user/configdata.html', nickname=nickname, name=name, num=num, generation=generation)
+    else:
+        pass
 
 
 @app.route("/admin/token", methods=['GET', 'POST'])
