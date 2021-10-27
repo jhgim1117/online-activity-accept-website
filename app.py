@@ -31,5 +31,10 @@ def signout():
     session.pop('user_id', None)
     return redirect("/")
 
+@app.route("/configdata", methods=['get','POST'])
+def configdata():
+    if 'user_id' in session:
+        return render_template('configdata.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
