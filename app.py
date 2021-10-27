@@ -51,6 +51,7 @@ def configdata():
 
         if 'user_id' in session: #로그인 상태일때만
             return render_template('user/configdata.html', nickname=nickname, name=name, num=num, generation=generation)
+            
     else:
         pass
 

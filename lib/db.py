@@ -1,4 +1,5 @@
 import sqlite3
+import bcrypt
 def dict_factory(cursor, row):
     d = {}
     for idx,col in enumerate(cursor.description):
@@ -22,11 +23,12 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
-def user_insert(name, num, generation, nickname, pw):
+def user_insert(name, num, generation, nickname, pw, id):
     db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, pw))
 
-def token_insert(generation, num, token):
-    db_execute("insert into token (generation, num, token) values (?, ?, ?)" (generation, num, token))
+def user_update(name, num, generation, nickname, plain_pw, id):
+    hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, id))
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
@@ -41,4 +43,6 @@ if __name__ == '__main__':
     # check db info
     # check_table_info('user')
     # print(db_execute("SELECT * FROM user"))
-    check_table_info('token')
+    # check_table_info('token')
+    # db_execute('UPDATE user SET pw="minjae@@2" WHERE id=10')
+    user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
