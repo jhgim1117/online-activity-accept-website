@@ -51,6 +51,8 @@ def signup_post():
 
     if not(name or plain_pw or name or generation or num):
         pass #경고 메시지
+
+    
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
     return redirect('/login?signup=1')
