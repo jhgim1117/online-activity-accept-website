@@ -24,6 +24,9 @@ def check_table_info(tbl_name):
 
 def user_insert(name, num, generation, nickname, pw):
     db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, pw))
+
+def token_insert(generation, num, token):
+    db_execute("insert into token (generation, num, token) values (?, ?, ?)" (generation, num, token))
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 

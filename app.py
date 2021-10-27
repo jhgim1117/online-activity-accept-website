@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from lib import db
-from route import member, user_list
+from route import member
+from route.admin import user_list
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -26,13 +27,17 @@ def signup():
         return member.signup_post()
 
 @app.route("/admin/user_list")
-def admin():
+def user_list():
     return user_list.show_user_list()
 
 @app.route("/configdata", methods=['get','POST'])
 def configdata():
     if 'user_id' in session:
         return render_template('configdata.html')
+
+@app.route("/admin/token")
+def token():
+    return token.issue_token()
 
 if __name__ == '__main__':
     app.run(debug=True)
