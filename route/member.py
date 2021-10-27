@@ -35,9 +35,12 @@ def signup_post():
     num = request.form["num"]
     now = datetime.datetime.now()
     
+    # 빈칸 거르기
     if not (nickname and plain_pw and name and generation and num):
         print("오류")
         return "오류"
+    
+    # 기수 거르기
     able_generation = [now.year-1985, now.year-1984, now.year-1983]
     if generation in able_generation:
         print("gen: yes")
@@ -45,6 +48,8 @@ def signup_post():
     else:
         print("gen: no")
         pass #경고 메시지
+    
+    #닉네임 거르기
     
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)

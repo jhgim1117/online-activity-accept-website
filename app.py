@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 from lib import db
-from route import member
+from route import member, user_list
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -24,6 +24,10 @@ def signup():
         return member.signup_get()
     else:
         return member.signup_post()
+
+@app.route("/admin/user_list")
+def admin():
+    return user_list.show_user_list()
 
 if __name__ == '__main__':
     app.run(debug=True)
