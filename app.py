@@ -26,13 +26,10 @@ def signup():
     else:
         return member.signup_post()
 
-@app.route("/signout", methods=['GET', 'POST'])
+@app.route("/signout", methods=['POST'])
 def signout():
-    if request.method == 'GET':
-        return member.signout_get() #미구현
-    else:
-        session.pop('user_id', None)
-        return redirect("/")
+    session.pop('user_id', None)
+    return redirect("/")
 
 if __name__ == '__main__':
     app.run(debug=True)
