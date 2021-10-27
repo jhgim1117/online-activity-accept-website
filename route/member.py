@@ -35,22 +35,17 @@ def signup_post():
     num = request.form["num"]
     now = datetime.datetime.now()
     
-    able_generation = [36, 37, 38]
-    if now.year == 2021:
-        if generation in able_generation:
-            pass
-        else:
-            pass #경고 메시지
+    if not (nickname and plain_pw and name and generation and num):
+        print("오류")
+        return "오류"
+    able_generation = [now.year-1985, now.year-1984, now.year-1983]
+    if generation in able_generation:
+        print("gen: yes")
+        pass
     else:
-        for i in range(3):
-            able_generation[i] += (now.year-2021)
-        if generation in able_generation:
-            pass
-        else:
-            pass #경고 메시지
-
-    if not(name or plain_pw or name or generation or num):
+        print("gen: no")
         pass #경고 메시지
+    
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
     return redirect('/login?signup=1')
