@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>sign up</title>
+    {% if status==1 %}
+        <script>alert('입력되지 않은 데이터가 있습니다.')</script>
+    {% elif status==2 %}
+        <script>alert('기수 입력이 잘못되었습니다.')</script>
+    {% elif status==3 %}
+        <script>alert('이름 길이가 범위에서 벗어났습니다.')</script>
+    {% elif status==4 %}
+        <script>alert('학번 입력이 잘못되었습니다.')</script>
+    {% elif status==5 %}
+        <script>alert('이미 존재하는 id입니다.')</script>
+    {% endif %}
 </head>
 <body>
     <div>
