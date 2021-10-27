@@ -5,7 +5,7 @@ user_list_in_db = db.db_execute("SELECT * FROM user")
 
 def show_user_list():
     return render_template(
-        'user/user_list.html',
+        'admin/user_list.html',
         user_list = user_list_in_db,
         hello = {
             'name':'이민재'
