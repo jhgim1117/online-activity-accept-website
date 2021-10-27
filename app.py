@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
+from werkzeug.utils import redirect
 from lib import db
-from route import member, user_list
+from route import member
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -25,14 +26,24 @@ def signup():
     else:
         return member.signup_post()
 
-@app.route("/admin/user_list")
-def admin():
-    return user_list.show_user_list()
+@app.route("/signout", methods=['POST'])
+def signout():
+    session.pop('user_id', None)
+    return redirect("/")
 
 @app.route("/configdata", methods=['get','POST'])
 def configdata():
-    if 'user_id' in session:
-        return render_template('configdata.html')
+    user_id=session['user_id']
+    #이름 학번 기수 아이디 가져오기
+    nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
+    name = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['name']
+    num = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['num']
+    generation = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['generation']
+
+    if 'user_id' in session: #로그인 상태일때만
+        return render_template('configdata.html', nickname=nickname, name=name, num=num, generation=generation)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

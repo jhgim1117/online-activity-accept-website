@@ -11,6 +11,12 @@
     <a href="/signup">회원가입</a>
     {% if nickname %}
         <p>{{nickname}}! Hello World!</p>
+        <form method="post" action="/signout">
+            <P><input type="submit" value="Logout"/></P>
+        </form>
+        <form method="post" action="/configdata">
+            <P><input type="submit" value="config"/></P>
+        </form>
     {% else %}
         <p>Hello World!</p>
     {% endif %}
