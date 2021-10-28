@@ -52,6 +52,9 @@ def issue_token():
     else:
         return token.token_post()
 
+@app.route("/admin/token_list")
+def token_show():
+    return token.show_token_list()
 
 if __name__ == '__main__':
     app.run(debug=True)

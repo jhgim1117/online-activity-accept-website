@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>token_list</title>
+</head>
+<body>
+    <table border=1>
+            <thead>
+                <tr>
+                    <th colspan="4">학생별 토큰 목록</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>학번</td>
+                    <td>기수</td>
+                    <td>토큰</td>
+                </tr>
+                {% for user in token_list %}
+                    <tr>
+                        <td>{{ user['num'] }}</td>
+                        <td>{{ user['generation'] }}</td>
+                        <td>{{ user['token'] }}</td>
+                    </tr>   
+                {% endfor %}
+            </tbody>
+    </table>
+</body>
+</html>
