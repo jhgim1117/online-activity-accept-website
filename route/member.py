@@ -50,10 +50,10 @@ def signup_post():
         pass #경고 메시지
     
     #닉네임 거르기
-
     
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    db.user_insert(name, num, generation, nickname, hashed_pw)
+
+    db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
     return redirect('/login?signup=1')
 
 def configdata_post():
