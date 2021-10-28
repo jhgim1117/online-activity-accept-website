@@ -23,7 +23,7 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
-def user_update(name, num, generation, nickname, plain_pw):
+def user_update(id, name, num, generation, nickname, plain_pw):
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, id))
 

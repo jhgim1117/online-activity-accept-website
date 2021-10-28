@@ -53,7 +53,7 @@ def signup_post():
     
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-    db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
+    db.db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
     return redirect('/login?signup=1')
 
 def configdata_post():
@@ -71,24 +71,24 @@ def db_config_update():
     user_id=session['user_id']
 
     name = request.form["name"]
-    num = request.form["num"]
-    generation = request.form["generation"]
+    num = int(request.form["num"])
+    generation = int(request.form["generation"])
     Id = request.form["ID"]
     present_pw = request.form["now password"] #사용자가 작성한 기존 비번
     new_pw = request.form["new password"] #바꿀 비번
     renew_pw = request.form["renew password"] #바꿀 비번 확인
     
-    hashed_pw = db.db_execute('SELECT pw FROM user WHERE nickname=?', (user_id,))[0]['pw'] #DB 상의 기존 비번 들고오기
+    hashed_pw = db.db_execute('SELECT pw FROM user WHERE id=?', (user_id,))[0]['pw'] #DB 상의 기존 비번 들고오기
     if new_pw == renew_pw: #비번 확인
         if bcrypt.checkpw(present_pw.encode('utf-8'),hashed_pw.encode('utf-8')): #DB 기존 비번과 입력한 비번이 일치하면 DB업데이트 
-            db.user_update(name, num, generation, Id, new_pw)
+            db.user_update(user_id, name, num, generation, Id, new_pw)
             flash("성공적으로 변경되었습니다!")
-            return render_template("index.html")
+            return render_template("/user/configdata.html")
         else:
             flash("기존 비밀번호가 일치하지 않습니다!")
-            return render_template("configdata.html")
+            return render_template("/user/configdata.html")
     else:
         flash("새 비밀번호와 다시 확인 비밀번호가 다릅니다!")
-        return render_template("configdata.html")
+        return render_template("/user/configdata.html")
     
     db.user_insert()
