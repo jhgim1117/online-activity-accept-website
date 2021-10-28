@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
 from lib import db
-from route import member
-from route.admin import user_list
-
+from route import member, user_list, token
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -30,7 +28,7 @@ def signup():
 
 
 @app.route("/admin/user_list")
-def user_list():
+def user_list_show():
     return user_list.show_user_list()
 
 @app.route("/signout", methods=['POST'])
@@ -55,14 +53,14 @@ def configdata():
     else:
         pass
 
-'''
+
 @app.route("/admin/token", methods=['GET', 'POST'])
-def token():
+def issue_token():
     if request.method == 'GET':
-        return token.token()
+        return token.token_get()
     else:
-        return token
-'''
+        return token.token_post()
+
 
 if __name__ == '__main__':
     app.run(debug=True)

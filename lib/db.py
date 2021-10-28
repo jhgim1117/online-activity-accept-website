@@ -23,12 +23,18 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
-def user_insert(name, num, generation, nickname, pw, id):
+def user_insert(name, num, generation, nickname, pw):
     db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, pw))
 
 def user_update(name, num, generation, nickname, plain_pw, id):
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, id))
+
+def token_insert(generation, num, token):
+    db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
+
+def show_db_info(table):
+    print(db_execute("SELECT * FROM " + table))
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
@@ -45,4 +51,5 @@ if __name__ == '__main__':
     # print(db_execute("SELECT * FROM user"))
     # check_table_info('token')
     # db_execute('UPDATE user SET pw="minjae@@2" WHERE id=10')
-    user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
+    # user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
+    show_db_info('token')
