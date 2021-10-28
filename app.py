@@ -61,6 +61,9 @@ def issue_token():
     else:
         return token.token_post()
 
+@app.route('/admin')
+def admin():
+    return render_template('/admin/index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
