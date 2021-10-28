@@ -8,7 +8,15 @@
 </head>
 <body>
     <h1>정보 수정</h1>
-    <form method="get" action="/">
+    <!-- 경고 메시지 -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="/configdata/update">
         <div>
             <label for="name" > 이름 </label>
             <input type="text" name="name" id = "name" value='{{name}}'>

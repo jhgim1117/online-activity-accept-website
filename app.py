@@ -37,13 +37,22 @@ def signout():
     return redirect("/")
 
 
-@app.route("/configdata", methods=['GET','POST'])
+@app.route("/configdata", methods=['GET','POST']) #회워 정보 수정페이지
 def configdata():
     if request.method=="POST":
         return member.configdata_post()
 
     else:
         pass
+
+@app.route("/configdata/update", methods=['GET','POST']) #회원 정보 수정 실시
+def configdata_update():
+    if request.method=="POST":
+        return member.db_config_update()
+
+    else:
+        pass
+
 
 @app.route("/admin/token", methods=['GET', 'POST'])
 def issue_token():
