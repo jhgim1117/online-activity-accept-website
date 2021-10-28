@@ -50,7 +50,19 @@ def signup_post():
         pass #경고 메시지
     
     #닉네임 거르기
+
     
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.user_insert(name, num, generation, nickname, hashed_pw)
     return redirect('/login?signup=1')
+
+def configdata_post():
+    user_id=session['user_id']
+        #이름 학번 기수 아이디 가져오기
+    nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
+    name = db.db_execute('SELECT name FROM user WHERE id=?', (user_id,))[0]['name']
+    num = db.db_execute('SELECT num FROM user WHERE id=?', (user_id,))[0]['num']
+    generation = db.db_execute('SELECT generation FROM user WHERE id=?', (user_id,))[0]['generation']
+
+    if 'user_id' in session: #로그인 상태일때만
+        return render_template('user/configdata.html', nickname=nickname, name=name, num=num, generation=generation)
