@@ -27,9 +27,6 @@ def user_update(id, name, num, generation, nickname, plain_pw):
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, id))
 
-def token_insert(generation, num, token):
-    db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
-
 def show_db_info(table):
     print(db_execute("SELECT * FROM " + table))
 ##use example 1: print(db_execute("SELECT * FROM user"))
@@ -49,4 +46,6 @@ if __name__ == '__main__':
     # check_table_info('token')
     # db_execute('UPDATE user SET pw="minjae@@2" WHERE id=10')
     # user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
-    show_db_info('token')
+    # show_db_info('token')
+    # user_update(14, '관리자', 0000, 00, 'admin', 'admin')
+    show_db_info('user')

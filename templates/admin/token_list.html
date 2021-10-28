@@ -4,33 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user_list</title>
-    <style>
-        td, th {
-            border:1px solid black;
-        }
-    </style>
+    <title>token list</title>
 </head>
 <body>
-    <table>
+    <table border=1>
             <thead>
                 <tr>
-                    <th colspan="4">사용자 목록</th>
+                    <th colspan="4">토큰 목록</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>이름</td>
                     <td>학번</td>
                     <td>기수</td>
-                    <td>ID</td>
+                    <td>토큰</td>
                 </tr>
-                {% for user in user_list %}
+                {% for user in user_token_list %}
                     <tr>
-                        <td>{{ user['name'] }}</td>
                         <td>{{ user['num'] }}</td>
                         <td>{{ user['generation'] }}</td>
-                        <td>{{ user['nickname'] }}</td>
+                        <td>{{ user['token'] }}</td>
                     </tr>   
                 {% endfor %}
             </tbody>
