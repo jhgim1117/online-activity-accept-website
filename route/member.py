@@ -35,8 +35,9 @@ def signup_post():
     name = request.form["name"]
     generation = request.form["generation"]
     num = request.form["num"]
+    token = request.form['token']
     now = datetime.datetime.now()
-    
+
     # 빈칸 거르기
     if not (nickname and plain_pw and name and generation and num):
         return redirect('/signup?state=1')
@@ -55,6 +56,14 @@ def signup_post():
     id_list = db.db_execute("SELECT id FROM user WHERE nickname=?", (nickname,))
     if len(id_list):
         return redirect('/signup?state=5')
+    
+    token_list = db.db_execute("SELECT token FROM token WHERE num=?", (num, ))
+    if len(token_list):
+        if int(token) != int(token_list[0]['token']):
+            print(token_list[0]['token'])
+            return redirect('/signup?state=6')
+    else:
+        return redirect('/signup?state=7')
 
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
