@@ -14,9 +14,12 @@ def login_post():
     id_list = db.db_execute("SELECT id FROM user WHERE nickname=?", (id,))
     if not len(id_list):
         return redirect('/login?state=2')
+    user_id = id_list[0]['id']
     hashed_pw = db.db_execute('SELECT pw FROM user WHERE nickname=?', (id,))[0]['pw']
     if bcrypt.checkpw(plain_pw.encode('utf-8'),hashed_pw.encode('utf-8')):
-        session['user_id'] = id_list[0]['id']
+        if len(db.db_execute('SELECT * FROM admin WHERE user_id=?', (user_id))):
+            session['admin'] = True
+        session['user_id'] = user_id
         return redirect('/')
     else:
         return redirect('/login?state=3')
@@ -82,9 +85,8 @@ def db_config_update():
     hashed_pw = db.db_execute('SELECT pw FROM user WHERE id=?', (user_id,))[0]['pw'] #DB 상의 기존 비번 들고오기
     if new_pw == renew_pw: #비번 확인
         if bcrypt.checkpw(present_pw.encode('utf-8'),hashed_pw.encode('utf-8')): #DB 기존 비번과 입력한 비번이 일치하면 DB업데이트 
-            hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             db.db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, Id, hashed_pw, user_id))
-            # db.user_update(user_id, name, num, generation, Id, new_pw)
             flash("성공적으로 변경되었습니다!")
             return render_template("/user/configdata.html")
         else:

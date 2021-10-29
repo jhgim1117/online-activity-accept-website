@@ -34,6 +34,7 @@ def user_list_show():
 @app.route("/signout", methods=['POST'])
 def signout():
     session.pop('user_id', None)
+    session.pop('admin', None)
     return redirect("/")
 
 
@@ -53,6 +54,9 @@ def configdata_update():
     else:
         pass
 
+@app.route('/admin')
+def admin_site():
+    return admin.show_admin_site()
 
 @app.route("/admin/token", methods=['GET', 'POST'])
 def issue_token():
@@ -64,10 +68,6 @@ def issue_token():
 @app.route('/admin/token_list')
 def token_list():
     return admin.show_token_list()
-
-@app.route('/admin')
-def admin_site():
-    return admin.show_admin_site()
 
 if __name__ == '__main__':
     app.run(debug=True)
