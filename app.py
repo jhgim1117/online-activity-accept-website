@@ -69,7 +69,7 @@ def issue_token():
 def issue_token():
      return admin.token_delete()
     
-@app.route('/admin/token_list')
+@app.route('/admin/token/LIST')
 def token_list():
     return admin.show_token_list()
 

@@ -38,3 +38,6 @@ def show_user_list():
         'admin/user_list.html',
         user_list = user_list_in_db
     )
+
+def token_delete():
+    pass
