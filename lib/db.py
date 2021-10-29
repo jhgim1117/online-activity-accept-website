@@ -23,10 +23,6 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
-def user_update(id, name, num, generation, nickname, plain_pw):
-    hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, id))
-
 def show_db_info(table):
     print(db_execute("SELECT * FROM " + table))
 ##use example 1: print(db_execute("SELECT * FROM user"))
@@ -40,6 +36,7 @@ if __name__ == '__main__':
     # db_execute("CREATE TABLE user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
     # db_execute("CREATE TABLE request(req_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, datetime DATETIME NOT NULL, req_user INTEGER NOT NULL, req_date DATE NOT NULL, req_start_time TIME NOT NULL, req_end_time TIME NOT NULL, place TEXT NOT NULL, reason TEXT NOT NULL, teacher_id INTEGER NOT NULL)")
     # db_execute("CREATE TABLE token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, generation INTEGER NOT NULL, num INTEGER NOT NULL, token INTEGER NOT NULL)")
+    # db_execute("CREATE TABLE admin(admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL)")
     # check db info
     # check_table_info('user')
     # print(db_execute("SELECT * FROM user"))
@@ -48,4 +45,4 @@ if __name__ == '__main__':
     # user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
     # show_db_info('token')
     # user_update(14, '관리자', 0000, 00, 'admin', 'admin')
-    show_db_info('user')
+    show_db_info('admin')
