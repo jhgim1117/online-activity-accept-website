@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, session, flash
+from flask import render_template, request, redirect, session, flash, abort
 from lib import db
 import bcrypt
 import datetime
@@ -69,7 +69,7 @@ def signup_post():
     db.db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
     return redirect('/login?state=1')
     
-def configdata_post():
+def config_get():
     user_id=session['user_id']
         #이름 학번 기수 아이디 가져오기
     nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
@@ -78,9 +78,9 @@ def configdata_post():
     generation = db.db_execute('SELECT generation FROM user WHERE id=?', (user_id,))[0]['generation']
 
     if 'user_id' in session: #로그인 상태일때만
-        return render_template('user/configdata.html', nickname=nickname, name=name, num=num, generation=generation)
+        return render_template('user/config.html', nickname=nickname, name=name, num=num, generation=generation)
 
-def db_config_update():
+def config_post():
     user_id=session['user_id']
 
     name = request.form["name"]
@@ -97,10 +97,37 @@ def db_config_update():
             hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             db.db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, Id, hashed_pw, user_id))
             flash("성공적으로 변경되었습니다!")
-            return render_template("/user/configdata.html")
+            return render_template("/user/config.html")
         else:
             flash("기존 비밀번호가 일치하지 않습니다!")
-            return render_template("/user/configdata.html")
+            return render_template("/user/config.html")
     else:
         flash("새 비밀번호와 다시 확인 비밀번호가 다릅니다!")
-        return render_template("/user/configdata.html")
+        return render_template("/user/config.html")
+
+def treat_member(act, is_get):  
+    if act == "login":
+        if is_get:
+            return login_get()
+        else:
+            return login_post()
+    elif act == "signup":
+        if is_get:
+            return signup_get()
+        else:
+            return signup_post()
+    elif act == "config":
+        if is_get:
+            return config_get()
+        else:
+            return config_post()
+    elif act == "signout":
+        if not is_get:
+            session.pop('user_id', None)
+            session.pop('admin', None)
+            return redirect("/")
+        else:
+            abort(405)
+    if act == None:
+        return "hello"
+    abort(404)
