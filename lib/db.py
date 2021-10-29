@@ -25,6 +25,7 @@ def check_table_info(tbl_name):
 
 def show_db_info(table):
     print(db_execute("SELECT * FROM " + table))
+
 ##use example 1: print(db_execute("SELECT * FROM user"))
 ## 2: db_execute("INSERT ~")
 
@@ -46,3 +47,4 @@ if __name__ == '__main__':
     # show_db_info('token')
     # user_update(14, '관리자', 0000, 00, 'admin', 'admin')
     show_db_info('admin')
+    # db_execute("insert into admin (user_id) values (14)")

@@ -26,11 +26,6 @@ def signup():
     else:
         return member.signup_post()
 
-
-@app.route("/admin/user_list")
-def user_list_show():
-    return admin.show_user_list()
-
 @app.route("/signout", methods=['POST'])
 def signout():
     session.pop('user_id', None)
@@ -58,6 +53,14 @@ def configdata_update():
 def admin_site():
     return admin.show_admin_site()
 
+@app.route("/admin/user")
+def user_list_show():
+    return admin.show_user_list()
+
+@app.route("/admin/user/delete", methods=['POST'])
+def user_delete():
+    return admin.user_delete()
+
 @app.route("/admin/token", methods=['GET', 'POST'])
 def issue_token():
     if request.method == 'GET':
@@ -65,11 +68,11 @@ def issue_token():
     elif request.method == 'POST':
         return admin.token_post()
 
-@app.route("/admin/token/DELETE", methods=['POST'])
+@app.route("/admin/token/delete", methods=['POST'])
 def token_delete():
      return admin.token_delete()
     
-@app.route('/admin/token/LIST')
+@app.route('/admin/token/list')
 def token_list():
     return admin.show_token_list()
 
