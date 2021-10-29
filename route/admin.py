@@ -42,7 +42,7 @@ def token_delete():
 def user_delete():
     id = request.form['id']
     db.db_execute("DELETE FROM user WHERE id=?", (id, ))
-    return redirect("/admin/user")
+    return redirect("/admin/user/list")
 
 def treat_admin(act, is_get):
     print(act)
