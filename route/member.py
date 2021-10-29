@@ -17,7 +17,7 @@ def login_post():
     user_id = id_list[0]['id']
     hashed_pw = db.db_execute('SELECT pw FROM user WHERE nickname=?', (id,))[0]['pw']
     if bcrypt.checkpw(plain_pw.encode('utf-8'),hashed_pw.encode('utf-8')):
-        if len(db.db_execute('SELECT * FROM admin WHERE user_id=?', (user_id))):
+        if len(db.db_execute('SELECT * FROM admin WHERE user_id=?', (user_id,))):
             session['admin'] = True
         session['user_id'] = user_id
         return redirect('/')
