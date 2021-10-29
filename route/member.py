@@ -119,6 +119,4 @@ def treat_member(act, is_get):
             return redirect("/")
         else:
             abort(405)
-    if act == None:
-        return "hello"
     abort(404)
