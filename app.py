@@ -66,7 +66,7 @@ def issue_token():
         return admin.token_post()
 
 @app.route("/admin/token/DELETE", methods=['POST'])
-def issue_token():
+def token_delete():
      return admin.token_delete()
     
 @app.route('/admin/token/LIST')
