@@ -15,7 +15,7 @@
     <table>
             <thead>
                 <tr>
-                    <th colspan="4">사용자 목록</th>
+                    <th colspan="5">사용자 목록</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +24,7 @@
                     <td>학번</td>
                     <td>기수</td>
                     <td>ID</td>
+                    <td>삭제</td>
                 </tr>
                 {% for user in user_list %}
                     <tr>
@@ -31,6 +32,12 @@
                         <td>{{ user['num'] }}</td>
                         <td>{{ user['generation'] }}</td>
                         <td>{{ user['nickname'] }}</td>
+                        <td>
+                            <form action="/admin/user/delete" method="POST" >
+                                <input type="hidden" name="id" value="{{ user['id'] }}">
+                                <input type="submit" value="삭제">
+                            </form>
+                        </td>
                     </tr>   
                 {% endfor %}
             </tbody>

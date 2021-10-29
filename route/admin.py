@@ -1,4 +1,4 @@
-from flask import render_template, session, request, abort
+from flask import render_template, session, request, abort, redirect
 from lib import db
 import random
 
@@ -34,6 +34,16 @@ def token_list_get():
         user_token_list = token_list_in_db
     )
 
+def token_delete():
+    id = request.form['id']
+    db.db_execute("DELETE FROM token WHERE id=?", (id, ))
+    return redirect('/admin/token/list')
+
+def user_delete():
+    id = request.form['id']
+    db.db_execute("DELETE FROM user WHERE id=?", (id, ))
+    return redirect("/admin/user")
+
 def treat_admin(act, is_get):
     print(act)
     if not 'admin' in session:
@@ -41,6 +51,11 @@ def treat_admin(act, is_get):
     if act == "user/list":
         if is_get:
             return user_list_get()
+        else:
+            abort(405)
+    elif act == "user/delete":
+        if not is_get:
+            return user_delete()
         else:
             abort(405)
     elif act == "token":
