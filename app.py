@@ -62,9 +62,13 @@ def admin_site():
 def issue_token():
     if request.method == 'GET':
         return admin.token_get()
-    else:
+    elif request.method == 'POST':
         return admin.token_post()
 
+@app.route("/admin/token/DELETE", methods=['POST'])
+def issue_token():
+     return admin.token_delete()
+    
 @app.route('/admin/token_list')
 def token_list():
     return admin.show_token_list()
