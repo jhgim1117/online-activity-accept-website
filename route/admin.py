@@ -4,8 +4,6 @@ from lib import db
 import random
 
 def admin_get():
-    if not 'admin' in session:
-        return abort(403)
     return render_template('/admin/index.html')
 
 def user_list_get():
@@ -16,13 +14,9 @@ def user_list_get():
     )
 
 def token_get():
-    if not 'admin' in session:
-        return abort(403)
     return render_template('/admin/token.html')
 
 def token_post():
-    if not 'admin' in session:
-        return abort(403)
     generation, num = request.form["generation"], request.form["num"]
     token = random.randint(100000, 999999)
     db.db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))

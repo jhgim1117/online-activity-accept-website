@@ -13,7 +13,8 @@ def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
     id_list = db.db_execute("SELECT id FROM user WHERE nickname=?", (id,))
     if not len(id_list):
-        return redirect('/login?state=2')
+        flash("id가 존재하지 않습니다.")
+        return redirect('/member/login')
     user_id = id_list[0]['id']
     hashed_pw = db.db_execute('SELECT pw FROM user WHERE nickname=?', (id,))[0]['pw']
     if bcrypt.checkpw(plain_pw.encode('utf-8'),hashed_pw.encode('utf-8')):
@@ -22,7 +23,8 @@ def login_post():
         session['user_id'] = user_id
         return redirect('/')
     else:
-        return redirect('/login?state=3')
+        flash('pw가 일치하지 않습니다.')
+        return redirect('/member/login')
 
 def signup_get():
     status=0
@@ -39,35 +41,44 @@ def signup_post():
     now = datetime.datetime.now()
 
     # 빈칸 거르기
-    if not (nickname and plain_pw and name and generation and num):
-        return redirect('/signup?state=1')
+    if not (nickname and plain_pw and name and generation and num and token):
+        flash('입력되지 않은 데이터가 있습니다.')
+        return redirect('/member/signup')
     
     able_generation = [now.year-1985, now.year-1984, now.year-1983]
     if not int(generation) in able_generation:
-        return redirect('/signup?state=2')
+        flash('기수 입력이 잘못되었습니다.')
+        return redirect('/member/signup')
 
     if len(name) < 2 or len(name) > 10:
-        return redirect('/signup?state=3')
+        flash('이름 길이가 범위에서 벗어났습니다.')
+        return redirect('/member/signup')
         
     str_num = str(num)
     if (int(str_num[0]) not in range(1, 4)) or (int(str_num[1]) not in range(1, 6)) or (int(str_num[2:]) not in range(1, 25)):
-        return redirect('/signup?state=4')
+        flash('학번 입력이 잘못되었습니다.')
+        return redirect('/member/signup')
 
     id_list = db.db_execute("SELECT id FROM user WHERE nickname=?", (nickname,))
     if len(id_list):
-        return redirect('/signup?state=5')
+        flash('이미 존재하는 id입니다.')
+        return redirect('/member/signup')
     
-    token_list = db.db_execute("SELECT token FROM token WHERE num=?", (num, ))
+    token_list = db.db_execute("SELECT token FROM token WHERE num=? AND generation=?", (num, generation))
     if len(token_list):
         if int(token) != int(token_list[0]['token']):
             print(token_list[0]['token'])
-            return redirect('/signup?state=6')
+            flash('토큰이 일치하지 않습니다.')
+            return redirect('/member/signup')
     else:
-        return redirect('/signup?state=7')
+        flash('토큰이 등록되어있지 않습니다.')
+        return redirect('/member/signup')
+    db.db_execute('DELETE FROM token WHERE num=? AND generation=?', (num, generation))
 
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     db.db_execute("insert into user (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
-    return redirect('/login?state=1')
+    flash('회원가입되었습니다. 로그인해주시기 바랍니다.')
+    return redirect('/member/login')
     
 def config_get():
     user_id=session['user_id']
@@ -97,21 +108,27 @@ def config_post():
             hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             db.db_execute("UPDATE user SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, Id, hashed_pw, user_id))
             flash("성공적으로 변경되었습니다!")
-            return render_template("/user/config.html")
+            return redirect("/member/config")
         else:
             flash("기존 비밀번호가 일치하지 않습니다!")
-            return render_template("/user/config.html")
+            return redirect("/member/config")
     else:
         flash("새 비밀번호와 다시 확인 비밀번호가 다릅니다!")
-        return render_template("/user/config.html")
+        return redirect("/member/config")
 
 def treat_member(act, is_get):  
     if act == "login":
+        if 'user_id' in session:
+            flash("이미 로그인된 상태입니다.")
+            return redirect('/')
         if is_get:
             return login_get()
         else:
             return login_post()
     elif act == "signup":
+        flash("이미 로그인된 상태입니다.")
+        if 'user_id' in session:
+            return redirect('/')
         if is_get:
             return signup_get()
         else:
