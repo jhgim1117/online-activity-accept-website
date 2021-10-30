@@ -67,7 +67,6 @@ def signup_post():
     token_list = db.db_execute("SELECT token FROM token WHERE num=? AND generation=?", (num, generation))
     if len(token_list):
         if int(token) != int(token_list[0]['token']):
-            print(token_list[0]['token'])
             flash('토큰이 일치하지 않습니다.')
             return redirect('/member/signup')
     else:

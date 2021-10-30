@@ -40,7 +40,6 @@ def user_delete():
     return redirect("/admin/user/list")
 
 def treat_admin(act, is_get):
-    print(act)
     if not 'admin' in session:
         return abort(403)
     path_list = act.split('/')
