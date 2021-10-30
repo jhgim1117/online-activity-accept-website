@@ -21,7 +21,7 @@ def token_get():
 def token_post():
     generation, num = request.form["generation"], request.form["num"]
     token = random.randint(100000, 999999)
-    if db.db_execute("SELECT * FROM token WHERE num=? AND generation=?", (num, generation, )):
+    if not db.db_execute("SELECT * FROM token WHERE num=? AND generation=?", (num, generation, )):
         db.db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
     else:
         flash('이미 토큰이 발급되어있습니다.')
