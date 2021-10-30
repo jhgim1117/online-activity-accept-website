@@ -1,9 +1,11 @@
 from os import path
-from flask import render_template, session, request, abort, redirect
+from flask import render_template, session, request, abort, redirect, flash
 from lib import db
 import random
 
 def admin_get():
+    if not 'admin' in session:
+        return abort(403)
     return render_template('/admin/index.html')
 
 def user_list_get():
@@ -19,7 +21,10 @@ def token_get():
 def token_post():
     generation, num = request.form["generation"], request.form["num"]
     token = random.randint(100000, 999999)
-    db.db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
+    if db.db_execute("SELECT * FROM token WHERE num=? AND generation=?", (num, generation, )):
+        db.db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
+    else:
+        flash('이미 토큰이 발급되어있습니다.')
     return render_template('/admin/token.html')
 
 def token_list_get():

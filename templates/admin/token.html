@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
     <div>
         <form method="post" action="/admin/token">
             <div>   

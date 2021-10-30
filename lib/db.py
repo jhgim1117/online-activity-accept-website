@@ -46,5 +46,7 @@ if __name__ == '__main__':
     # user_update('이시환', 2114, 37, 'lhs0831', '123456789', 7)
     # show_db_info('token')
     # user_update(14, '관리자', 0000, 00, 'admin', 'admin')
-    show_db_info('admin')
+    
     # db_execute("insert into admin (user_id) values (14)")
+    # show_db_info('admin')
+    print(db_execute('SELECT * FROM token'))
