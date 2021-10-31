@@ -125,8 +125,8 @@ def treat_member(act, is_get):
         else:
             return login_post()
     elif act == "signup":
-        flash("이미 로그인된 상태입니다.")
         if 'user_id' in session:
+            flash("이미 로그인된 상태입니다.")
             return redirect('/')
         if is_get:
             return signup_get()
