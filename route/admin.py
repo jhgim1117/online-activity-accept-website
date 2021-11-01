@@ -49,7 +49,8 @@ def teacher_token_get():
 def teacher_token_post():
     name, subject = request.form["name"], request.form["subject"]
     token = random.randint(100000, 999999)
-    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND ")
+    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND "):
+        pass
 
 def treat_admin(act, is_get):
     if not 'admin' in session:
