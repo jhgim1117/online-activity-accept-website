@@ -106,7 +106,7 @@ def treat_student(act, is_get):
             flash("이미 로그인된 상태입니다.")
             return redirect('/')
         if is_get:
-            return render_template('/user/login.html')
+            return render_template('student/login.html')
         else:
             return login_post()
     elif act == "signup":
@@ -114,7 +114,7 @@ def treat_student(act, is_get):
             flash("이미 로그인된 상태입니다.")
             return redirect('/')
         if is_get:
-            return render_template('user/signup.html')
+            return render_template('student/signup.html')
         else:
             return signup_post()
     elif act == "config":
