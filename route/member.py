@@ -3,12 +3,6 @@ from lib import db
 import bcrypt
 import datetime
 
-def login_get():
-    status=0
-    if 'state' in request.args.to_dict():
-        status=int(request.args.to_dict()['state'])
-    return render_template('user/login.html', status=status)
-
 def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
     id_list = db.db_execute("SELECT id FROM user WHERE nickname=?", (id,))
@@ -25,12 +19,6 @@ def login_post():
     else:
         flash('pw가 일치하지 않습니다.')
         return redirect('/member/login')
-
-def signup_get():
-    status=0
-    if 'state' in request.args.to_dict():
-        status=int(request.args.to_dict()['state'])
-    return render_template('user/signup.html', status=status)
 
 def signup_post():
     nickname, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
@@ -121,7 +109,7 @@ def treat_member(act, is_get):
             flash("이미 로그인된 상태입니다.")
             return redirect('/')
         if is_get:
-            return login_get()
+            return render_template('/user/login.html')
         else:
             return login_post()
     elif act == "signup":
@@ -129,7 +117,7 @@ def treat_member(act, is_get):
             flash("이미 로그인된 상태입니다.")
             return redirect('/')
         if is_get:
-            return signup_get()
+            return render_template('user/signup.html')
         else:
             return signup_post()
     elif act == "config":
