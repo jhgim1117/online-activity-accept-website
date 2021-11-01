@@ -26,13 +26,5 @@
     {% else %}
         <p>Hello World!</p>
     {% endif %}
-    <!-- 경고 메시지 -->
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <script type="text/javascript">
-        alert("{{messages[-1]}}");
-      </script>
-      {% endif %}
-    {% endwith %}
 </body>
 </html>
