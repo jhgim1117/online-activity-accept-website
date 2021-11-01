@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>교사용 토큰 발급</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
+    <div>
+        <form method="post" action="/admin/token">
+            <div>   
+                <label for="name"> 이름 </label>
+                <input type="text" name="name" id="name">
+            </div>
+            <div>
+                <label for="subject"> 과목 </label>
+                <input type="text" name="subject" id="subject">
+            </div>
+            <div>
+                <input type="submit" id="tokenissuebutton" name="button" value="토큰 발급">
+            </div>
+        </form>
+    </div>
+</html>

@@ -30,5 +30,16 @@ def admin_act(act = None):
     elif request.method == 'POST':
         return admin.treat_admin(act, False)
 
+@app.route("/teacher")
+def teacher_site():
+    return teacher.teacher_get()
+
+@app.route("/teacher/<path:act>", methods=['GET', 'POST'])
+def teacher_act(act = None):
+    if request.method == 'GET':
+        return teacher.treat_teacher(act, True)
+    elif request.method == 'POST':
+        return teacher.treat_teacher(act, False)
+
 if __name__ == '__main__':
     app.run(debug=True)
