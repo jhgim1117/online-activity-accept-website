@@ -19,5 +19,5 @@ def apply_post():
         return redirect('/apply')
     print(type(req_date), req_start_time, req_end_time, place, reason, teacher)
     
-
+    
     return render_template('')

@@ -41,14 +41,14 @@ def student_delete():
     db.db_execute("DELETE FROM student WHERE id=?", (id, ))
     return redirect("/admin/student/list")
 
-def teacher_token_get():
-    return render_template('/admin/teacher/token.html')
-
 def teacher_token_post():
-    name, subject = request.form["name"], request.form["subject"]
+    name = request.form["name"]
     token = random.randint(100000, 999999)
-    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND subject=?", (name, subject)):
+    if not db.db_execute("SELECT * FROM teacher_token WHERE name=?", (name, )):
         db.db_execute("INSERT INTO teacher_token (name, token) VALUES (?, ?)", (name, token))
+    else:
+        flash("이미 토큰이 발급되어있습니다.")
+    return redirect('/admin/token/teacher')
 
 def treat_admin(act, is_get):
     if not 'admin' in session:
@@ -81,4 +81,10 @@ def treat_admin(act, is_get):
                     return student_token_list_get()
                 else:
                     return abort(405)
-        return abort(404)
+    elif path_list[0] == 'teacher':
+        if path_list[1] == 'token':
+            if is_get:
+                return render_template('/admin/teacher/token.html')
+            else:
+                return teacher_token_post()
+    return abort(404)
