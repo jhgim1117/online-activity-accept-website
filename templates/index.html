@@ -16,6 +16,7 @@
 <body>
     <a href="member/login">로그인</a>
     <a href="member/signup">회원가입</a>
+    <a href="apply">활승 신청</a>
     <a href="admin">관리자 페이지</a>
     {% if nickname %}
         <p>{{nickname}}! Hello World!</p>
@@ -23,6 +24,7 @@
             <P><input type="submit" value="Logout"/></P>
         </form>
         <a href="member/config">config</a>
+        
     {% else %}
         <p>Hello World!</p>
     {% endif %}
