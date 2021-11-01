@@ -7,44 +7,42 @@ def admin_get():
         return abort(403)
     return render_template('/admin/index.html')
 
-def user_list_get():
-    user_list_in_db = db.db_execute("SELECT * FROM user")
+def student_list_get():
+    student_list_in_db = db.db_execute("SELECT * FROM student")
+    print(student_list_in_db)
     return render_template(
-        'admin/user_list.html',
-        user_list = user_list_in_db
+        'admin/student/list.html',
+        student_list = student_list_in_db
     )
 
-def token_get():
-    return render_template('/admin/token.html')
-
-def token_post():
+def student_token_post():
     generation, num = request.form["generation"], request.form["num"]
-    token = random.randint(100000, 999999)
-    if not db.db_execute("SELECT * FROM token WHERE num=? AND generation=?", (num, generation, )):
-        db.db_execute("INSERT INTO token (generation, num, token) VALUES (?, ?, ?)", (generation, num, token))
+    student_token = random.randint(100000, 999999)
+    if not db.db_execute("SELECT * FROM student_token WHERE num=? AND generation=?", (num, generation)):
+        db.db_execute("INSERT INTO student_token (generation, num, token) VALUES (?, ?, ?)", (generation, num, student_token))
     else:
         flash('이미 토큰이 발급되어있습니다.')
-    return render_template('/admin/token.html')
+    return render_template('/admin/student/token.html')
 
-def token_list_get():
-    token_list_in_db = db.db_execute("SELECT * FROM token")
+def student_token_list_get():
+    student_token_list_in_db = db.db_execute("SELECT * FROM student_token")
     return render_template(
-        'admin/token_list.html',
-        user_token_list = token_list_in_db
+        'admin/student/token_list.html',
+        student_token_list = student_token_list_in_db
     )
 
-def token_delete():
+def student_token_delete():
     id = request.form['id']
-    db.db_execute("DELETE FROM token WHERE id=?", (id, ))
-    return redirect('/admin/token/list')
+    db.db_execute("DELETE FROM student_token WHERE id=?", (id, ))
+    return redirect('/admin/student/token/list')
 
-def user_delete():
+def student_delete():
     id = request.form['id']
-    db.db_execute("DELETE FROM user WHERE id=?", (id, ))
-    return redirect("/admin/user/list")
+    db.db_execute("DELETE FROM student WHERE id=?", (id, ))
+    return redirect("/admin/student/list")
 
 def teacher_token_get():
-    return render_template('/admin/token_teacher.html')
+    return render_template('/admin/teacher/token.html')
 
 def teacher_token_post():
     name, subject = request.form["name"], request.form["subject"]
@@ -56,31 +54,31 @@ def treat_admin(act, is_get):
     if not 'admin' in session:
         return abort(403)
     path_list = act.split('/')
-    if path_list[0] == 'user':
+    if path_list[0] == 'student':
         if path_list[1] == 'list':
             if is_get:
-                return user_list_get()
+                return student_list_get()
             else:
-                abort(405)
+                return abort(405)
         if path_list[1] == 'delete':
             if not is_get:
-                return user_delete()
+                return student_delete()
             else:
-                abort(405)
-    elif path_list[0] == 'token':
-        if len(path_list)==1:
-            if is_get:
-                return token_get()
-            else:
-                return token_post()
-        elif path_list[1] == 'delete':
-            if is_get:
-                abort(405)
-            else:
-                return token_delete()
-        elif path_list[1] == 'list':
-            if is_get:
-                return token_list_get()
-            else:
-                abort(405)
-    abort(404)
+                return abort(405)
+        if path_list[1] == 'token':
+            if len(path_list) ==2:
+                if is_get:
+                    return render_template('/admin/student/token.html')
+                else:
+                    return student_token_post()
+            if path_list[2] == 'delete':
+                if is_get:
+                    return abort(405)
+                else:
+                    return student_token_delete()
+            if path_list[2] == 'list':
+                if is_get:
+                    return student_token_list_get()
+                else:
+                    return abort(405)
+        return abort(404)

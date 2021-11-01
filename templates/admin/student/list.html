@@ -4,30 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>token list</title>
+    <title>학생 목록</title>
+    <style>
+        td, th {
+            border:1px solid black;
+        }
+    </style>
 </head>
 <body>
-    <table border=1>
+    <table>
             <thead>
                 <tr>
-                    <th colspan="4">토큰 목록</th>
+                    <th colspan="5">학생 목록</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>이름</td>
                     <td>학번</td>
                     <td>기수</td>
-                    <td>토큰</td>
+                    <td>ID</td>
                     <td>삭제</td>
                 </tr>
-                {% for user in user_token_list %}
+                {% for student in student_list %}
                     <tr>
-                        <td>{{ user['num'] }}</td>
-                        <td>{{ user['generation'] }}</td>
-                        <td>{{ user['token'] }}</td>
+                        <td>{{ student['name'] }}</td>
+                        <td>{{ student['num'] }}</td>
+                        <td>{{ student['generation'] }}</td>
+                        <td>{{ student['nickname'] }}</td>
                         <td>
-                            <form action="/admin/token/delete" method="POST" >
-                                <input type="hidden" name="id" value="{{ user['id'] }}">
+                            <form action="/admin/student/delete" method="POST" >
+                                <input type="hidden" name="id" value="{{ student['id'] }}">
                                 <input type="submit" value="삭제">
                             </form>
                         </td>

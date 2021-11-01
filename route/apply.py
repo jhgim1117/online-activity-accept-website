@@ -5,7 +5,7 @@ def apply_get():
     return render_template('/apply/index.html')
 
 def apply_post():
-    req_user = session['user_id']
+    req_student = session['student_id']
     req_date = request.form['req_date']
     req_start_time = request.form['req_start_time']
     req_end_time = request.form['req_end_time']

@@ -1,22 +1,22 @@
 from flask import Flask, render_template, request, session, abort
 from lib import db
-from route import member, admin, apply, teacher
+from route import student, admin, apply, teacher
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
 def index():
     nickname = ''
-    if 'user_id' in session:
-        user_id=session['user_id']
-        nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
+    if 'student_id' in session:
+        student_id=session['student_id']
+        nickname = db.db_execute('SELECT nickname FROM student WHERE id=?', (student_id,))[0]['nickname']
     return render_template('index.html', nickname=nickname)
 
-@app.route("/member/<path:act>", methods=['GET', 'POST'])
-def member_act(act = None):
+@app.route("/student/<path:act>", methods=['GET', 'POST'])
+def student_act(act = None):
     if request.method == 'GET':
-        return member.treat_member(act, True)
+        return student.treat_student(act, True)
     elif request.method == 'POST':
-        return member.treat_member(act, False)
+        return student.treat_student(act, False)
 
 @app.route('/admin', methods=['GET'])
 def admin_site():
@@ -31,7 +31,7 @@ def admin_act(act = None):
 
 @app.route('/apply', methods=['GET', 'POST'])
 def apply_page():
-    if not 'user_id' in session:
+    if not 'student_id' in session:
         abort(403)
     if request.method == 'GET':
         return apply.apply_get()
