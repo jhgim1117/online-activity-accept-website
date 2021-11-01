@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, session
-from werkzeug.utils import redirect
+from flask import Flask, render_template, request, session, abort
 from lib import db
-from route import member, admin
+from route import member, admin, apply, teacher
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -19,7 +18,7 @@ def member_act(act = None):
     elif request.method == 'POST':
         return member.treat_member(act, False)
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET'])
 def admin_site():
     return admin.admin_get()
 
@@ -29,6 +28,15 @@ def admin_act(act = None):
         return admin.treat_admin(act, True)
     elif request.method == 'POST':
         return admin.treat_admin(act, False)
+
+@app.route('/apply', methods=['GET', 'POST'])
+def apply_page():
+    if not 'user_id' in session:
+        abort(403)
+    if request.method == 'GET':
+        return apply.apply_get()
+    else:
+        return apply.apply_post()
 
 @app.route("/teacher")
 def teacher_site():

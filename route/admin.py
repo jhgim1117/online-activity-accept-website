@@ -1,4 +1,3 @@
-from os import path
 from flask import render_template, session, request, abort, redirect, flash
 from lib import db
 import random

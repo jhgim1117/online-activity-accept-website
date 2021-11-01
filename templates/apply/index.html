@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>apply</title>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
+  </head>
+  <body>
+    <div>
+      <h1>활승 신청란</h1>
+    </div>
+    <div>
+      <form method="post" action="/apply">
+        <div>
+          <label for="req_date"> 활승 날짜 </label>
+          <input type="date" name="req_date" id="req_date" />
+        </div>
+        <div>
+          <label for="req_start_time"> 시작 시간 </label>
+          <input type="time" name="req_start_time" id="req_start_time" />
+        </div>
+        <div>
+          <label for="req_end_time"> 종료 시간 </label>
+          <input type="time" name="req_end_time" id="req_end_time" />
+        </div>
+        <div>
+          <label for="place"> 활승 장소 </label>
+          <select name="place" id="place">
+            <option value="1f">1층</option>
+            <option value="2f">2층</option>
+            <option value="3f">3층</option>
+            <option value="4f">4층</option>
+          </select>
+          <!-- 뒤에 추가로 넣기 -->
+          <select name="place" id="place">
+            <option value="1f">1층</option>
+            <option value="2f">2층</option>
+            <option value="3f">3층</option>
+            <option value="4f">4층</option>
+          </select>
+        </div>
+        <div>
+          <label for="reason"> 활승 사유 </label>
+          <input type="text" name="reason" id="reason" />
+        </div>
+        <div>
+          <label for="reason"> 신청할 쌤 </label>
+          <select name="teacher" id="teacher">
+            <option value="1">박명호T</option>
+            <option value="2">오성주T</option>
+            <option value="3">정리안T</option>
+            <option value="4">정연기T</option>
+            <option value="5">정태준T</option>
+          </select>
+        </div>
+        <div>
+          <input type="submit" id="req_button" name="button" value="신청" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
