@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up</title>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
+</head>
+<body>
+    <div>
+        <h1>교사용 회원 가입</h1>
+    </div>
+    <div>
+        <form method="post" action="signup">
+            <div>
+                <label for="name" > 이름 </label>
+                <input type="text" name="name" id = "name">
+            </div>
+            <div>
+                <label for="ID" > ID </label>
+                <input type = "text" name="ID" id = "ID">
+            </div>
+            <div>
+                <label for="PW" > PassWord </label>
+                <input type = "password" name="password" id = "PW">
+            </div>
+            <div>
+                <label for="token">토큰</label>
+                <input type="number" name="token" id="token">
+            </div>
+            <div>
+                <input type="submit" id="signup_button" name="button" value="Sign Up">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -43,6 +43,14 @@ def user_delete():
     db.db_execute("DELETE FROM user WHERE id=?", (id, ))
     return redirect("/admin/user/list")
 
+def teacher_token_get():
+    return render_template('/admin/token_teacher.html')
+
+def teacher_token_post():
+    name, subject = request.form["name"], request.form["subject"]
+    token = random.randint(100000, 999999)
+    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND ")
+
 def treat_admin(act, is_get):
     if not 'admin' in session:
         return abort(403)
