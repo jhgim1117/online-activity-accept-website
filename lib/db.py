@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # db_execute("CREATE TABLE token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, generation INTEGER NOT NULL, num INTEGER NOT NULL, token INTEGER NOT NULL)")
     # db_execute("CREATE TABLE admin(admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL)")
     # db_execute("CREATE TABLE teacher(teacher_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
-    # db_execute("CREATE TABLE teacher_token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, submit TEXT NOT NULL)")
+    # db_execute("CREATE TABLE teacher_token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, token INTEGER NOT NULL)")
     # check db info
     # check_table_info('user')
     # print(db_execute("SELECT * FROM user"))
@@ -52,5 +52,5 @@ if __name__ == '__main__':
     # db_execute("insert into admin (user_id) values (14)")
     # show_db_info('admin')
     # print(db_execute('SELECT * FROM token'))
-    check_table_info('token')
+    check_table_info('teacher')
     # db_execute("DROP TABLE teacher_token")

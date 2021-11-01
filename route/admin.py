@@ -47,10 +47,13 @@ def teacher_token_get():
     return render_template('/admin/token_teacher.html')
 
 def teacher_token_post():
-    name, subject = request.form["name"], request.form["subject"]
+    name = request.form["name"]
     token = random.randint(100000, 999999)
-    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND subject=?", (name, subject)):
+    if not db.db_execute("SELECT * FROM teacher_token WHERE name=?", (name, )):
         db.db_execute("INSERT INTO teacher_token (name, token) VALUES (?, ?)", (name, token))
+    else:
+        flash("이미 토큰이 발급되어있습니다.")
+    return redirect('/admin/token/teacher')
 
 def treat_admin(act, is_get):
     if not 'admin' in session:
@@ -83,4 +86,10 @@ def treat_admin(act, is_get):
                 return token_list_get()
             else:
                 abort(405)
+        elif path_list[1] == 'teacher':
+            if is_get:
+                return teacher_token_get()
+            else:
+                return teacher_token_post()
+            
     abort(404)
