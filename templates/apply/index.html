@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}활승 신청 - {% endblock %}
-
+{% block css %}apply{% endblock %}
 {% block contents %}
     <div>
       <h1>활승 신청란</h1>
@@ -34,7 +34,7 @@
             <option value="3f">3층</option>
             <option value="4f">4층</option>
           </select>
-          <a href="javascript:ViewLayer();">열어주세요</a
+          <a href="javascript:ViewLayer();">열어주세요</a>
         </div>
         <div>
           <label for="reason"> 활승 사유 </label>
@@ -55,22 +55,31 @@
         </div>
       </form>
     </div>
-    <div id="Pop" style="position:absolute; left:100px; top:400px; width:100px; height:100px; z-index:1;display:none;">
-
-      <h2>dfsd</h1>
-   
-   </div>
-  <script>
-      function ViewLayer(){
-  //만일 Pop라는 녀석이 닫혀있다면??
-  if(document.getElementById("Pop").style.display=="none"){
-    //열어주어라
-    document.getElementById("Pop").style.display='inline'
-  //그렇지 않은 모든 경우라면??
-  }else{
-    //닫아주어라
-    document.getElementById("Pop").style.display='none'
-  }
-  }
-  </script>
+    <div class="popup" id="Pop">
+      <!--팝업-->
+      <div class="popup_layer"> <!--팝업창-->
+        <div class="text_area"><!--텍스트 영역-->
+          <strong class="title">팝업 타이틀</strong>
+          <p class="text">팝업 텍스트 영역</p>
+        </div>
+        <div class="btn_area"><!--버튼 영역-->
+          <button type="button" name="button" class="btn">예</button>
+          <button type="button" name="button" class="btn no">아니오</button>
+        </div>
+      </div>
+      <div class="popup_dimmed"></div> <!--반투명 배경-->
+    </div>
+<script>
+    function ViewLayer(){
+//만일 Pop라는 녀석이 닫혀있다면??
+if(document.getElementById("Pop").style.display=="none"){
+   //열어주어라
+   document.getElementById("Pop").style.display='inline'
+//그렇지 않은 모든 경우라면??
+}else{
+   //닫아주어라
+   document.getElementById("Pop").style.display='none'
+}
+}
+</script>
 {% endblock %}
