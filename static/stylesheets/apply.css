@@ -3,15 +3,6 @@
 }
 
 .popup {
-	position: fixed; /*팝업 전체를 콘텐츠보다 위로 띄움*/
-    /*dimmed 영역이 콘텐츠가 길어질때 같이 길어지게 하기 위해 relative대신 fixed 사용. fixed는 뷰포트, 즉 현재 보이는 브라우저 화면 사이즈를 기준으로 하기 때문에 스크롤을 내려도 딤드 레이어가 노출됨*/
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-
-.popup_layer {
 	position: absolute;
     top: 0;
     right: 0;
@@ -24,7 +15,6 @@
 	background: #fff;
 	z-index: 10;
 }
-
 
 .text_area {
 	padding: 50px 30px 30px;
