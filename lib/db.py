@@ -1,5 +1,4 @@
 import sqlite3
-import bcrypt
 def dict_factory(cursor, row):
     d = {}
     for idx,col in enumerate(cursor.description):

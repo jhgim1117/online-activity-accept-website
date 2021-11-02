@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign up</title>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <script type="text/javascript">
-        alert("{{messages[-1]}}");
-      </script>
-      {% endif %}
-    {% endwith %}
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}회원가입 - {% endblock %}
+
+{% block contents %}
     <div>
         <h1>회원 가입</h1>
     </div>
@@ -48,5 +36,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

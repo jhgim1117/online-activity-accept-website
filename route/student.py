@@ -70,7 +70,7 @@ def signup_post():
 def config_get():
     student_id=session['student_id']
         #이름 학번 기수 아이디 가져오기
-    student_data = db.db_execute('SELECT nicknamem, name, num, generation FROM student WHERE id=?', (student_id,))[0]
+    student_data = db.db_execute('SELECT nickname, name, num, generation FROM student WHERE id=?', (student_id,))[0]
 
     if 'student_id' in session: #로그인 상태일때만
         return render_template('student/config.html', nickname=student_data['nickname'], name=student_data['name'], num=student_data['num'], generation=student_data['generation'])

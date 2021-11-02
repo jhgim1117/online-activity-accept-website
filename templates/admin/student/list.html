@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학생 목록</title>
-    <style>
-        td, th {
-            border:1px solid black;
-        }
-    </style>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}학생 목록 - {% endblock %}
+
+{% block contents %}
     <table>
             <thead>
                 <tr>
@@ -42,5 +32,4 @@
                 {% endfor %}
             </tbody>
     </table>
-</body>
-</html>
+{% endblock %}

@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}정보 수정 - {% endblock %}
+
+{% block contents %}
     <h1>정보 수정</h1>
     <!-- 경고 메시지 -->
     {% with messages = get_flashed_messages() %}
@@ -49,5 +44,4 @@
             <input type="submit" id="login button" name="button" value="Config">
         </div>
     </form>
-</body>
-</html>
+{% endblock %}

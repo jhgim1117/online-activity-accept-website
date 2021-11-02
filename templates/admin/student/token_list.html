@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>token list</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}학생 토큰 목록 - {% endblock %}
+
+{% block contents %}
     <table border=1>
             <thead>
                 <tr>
@@ -35,5 +30,4 @@
                 {% endfor %}
             </tbody>
     </table>
-</body>
-</html>
+{% endblock %}
