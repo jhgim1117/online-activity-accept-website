@@ -1,12 +1,13 @@
 function ViewLayer(){
     //만일 Pop라는 녀석이 닫혀있다면??
-    if(document.getElementById("Pop").style.display=="none"){
-        //열어주어라
-        document.getElementById("Pop").style.display='inline'
-    //그렇지 않은 모든 경우라면??
-    }else{
-        //닫아주어라
-        document.getElementById("Pop").style.display='none'
-    }
+    Array.from(document.getElementsByClassName("popup")).forEach(e => {
+        if(e.style.display=="none"){
+            e.style.display='inline'
+        }else{
+            e.style.display='none'
+        }
+    })
 }
-document.getElementById("popup-button").addEventListener('click', ViewLayer)
+Array.from(document.getElementsByClassName("popup-button")).forEach(element => {
+    element.addEventListener('click', ViewLayer)
+});
