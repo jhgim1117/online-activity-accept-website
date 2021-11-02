@@ -12,6 +12,65 @@
       </script>
       {% endif %}
     {% endwith %}
+    <style>
+      .content {
+	height: 5000px;
+}
+
+.popup {
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+	width: 300px;
+	height: 150px;
+	padding-bottom: 50px;
+    margin: auto; 
+	background: #fff;
+	z-index: 10;
+}
+
+.text_area {
+	padding: 50px 30px 30px;
+	text-align: center
+}
+
+.btn_area {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	overflow: hidden; /*float 해제*/
+}
+
+.btn {
+	float: left;
+	width: 50%;
+	height: 100%;
+	font-size: 15px;
+	font-weight: bold;
+	border: 0;
+	background: pink;
+    /*button태그의 기본 속성 : box-sizing:border-box;
+    따라서 기본적으로 width값 안에 border영역까지 포함됨*/
+}
+
+.btn.no {
+	background: lightblue;
+}
+
+.popup_dimmed {
+	position: absolute; /*띄워줌*/
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.3;
+}
+    </style>
   </head>
   <body>
     <div>
@@ -46,7 +105,7 @@
             <option value="3f">3층</option>
             <option value="4f">4층</option>
           </select>
-          <a href="javascript:ViewLayer();">열어주세요</a
+          <a href="javascript:ViewLayer();">열어주세요</a>
         </div>
         <div>
           <label for="reason"> 활승 사유 </label>
@@ -67,11 +126,20 @@
         </div>
       </form>
     </div>
-    <div id="Pop" style="position:absolute; left:100px; top:400px; width:100px; height:100px; z-index:1;display:none;">
-
-      <h2>dfsd</h1>
-   
-   </div>
+    <div class="popup" id="Pop">
+      <!--팝업-->
+      <div class="popup_layer"> <!--팝업창-->
+        <div class="text_area"><!--텍스트 영역-->
+          <strong class="title">팝업 타이틀</strong>
+          <p class="text">팝업 텍스트 영역</p>
+        </div>
+        <div class="btn_area"><!--버튼 영역-->
+          <button type="button" name="button" class="btn">예</button>
+          <button type="button" name="button" class="btn no">아니오</button>
+        </div>
+      </div>
+      <div class="popup_dimmed"></div> <!--반투명 배경-->
+    </div>
   </body>
 </html>
 <script>
