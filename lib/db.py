@@ -49,5 +49,5 @@ if __name__ == '__main__':
     # db_execute("insert into admin (student_id) values (14)")
     # show_db_info('admin')
     # print(db_execute('SELECT * FROM token'))
-    show_db_info('apply')
+    check_table_info('apply')
     # db_execute("DROP TABLE teacher_token")

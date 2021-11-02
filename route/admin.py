@@ -9,7 +9,6 @@ def admin_get():
 
 def student_list_get():
     student_list_in_db = db.db_execute("SELECT * FROM student")
-    print(student_list_in_db)
     return render_template(
         'admin/student/list.html',
         student_list = student_list_in_db
@@ -48,7 +47,31 @@ def teacher_token_post():
         db.db_execute("INSERT INTO teacher_token (name, token) VALUES (?, ?)", (name, token))
     else:
         flash("이미 토큰이 발급되어있습니다.")
-    return redirect('/admin/token/teacher')
+    return redirect('/admin/teacher/token')
+
+def teacher_token_list():
+    teacher_token_list_in_db = db.db_execute("SELECT * FROM teacher_token")
+    return render_template(
+        'admin/teacher/token_list.html',
+        teacher_token_list = teacher_token_list_in_db
+    )
+
+def teacher_token_delete():
+    id = request.form['id']
+    db.db_execute("DELETE FROM teacher_token WHERE id=?", (id, ))
+    return redirect('/admin/teacher/token/list')
+
+def teacher_delete():
+    id = request.form['id']
+    db.db_execute("DELETE FROM teacher WHERE teacher_id=?", (id, ))
+    return redirect('/admin/teacher/list')
+
+def teacher_list():
+    teacher_list_in_db = db.db_execute("SELECT * FROM teacher")
+    return render_template(
+        '/teacher/list.html',
+        teacher_list = teacher_list_in_db
+    )
 
 def treat_admin(act, is_get):
     if not 'admin' in session:
@@ -83,8 +106,29 @@ def treat_admin(act, is_get):
                     return abort(405)
     elif path_list[0] == 'teacher':
         if path_list[1] == 'token':
+            if len(path_list) == 2:
+                if is_get:
+                    return render_template('/admin/teacher/token.html')
+                else:
+                    return teacher_token_post()
+            elif path_list[2] == 'list':
+                if is_get:
+                    return teacher_token_list()
+                else:
+                    abort(405)
+            elif path_list[2] == 'delete':
+                if is_get:
+                    return abort(405)
+                else:
+                    return teacher_token_delete()
+        elif path_list[1] == list:
             if is_get:
-                return render_template('/admin/teacher/token.html')
+                return teacher_list()
             else:
-                return teacher_token_post()
+                return abort(405)
+        elif path_list[1] == 'delete':
+            if is_get:
+                return abort(405)
+            else:
+                return teacher_delete()
     return abort(404)

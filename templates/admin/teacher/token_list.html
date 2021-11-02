@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>token list</title>
+</head>
+<body>
+    <table border=1>
+            <thead>
+                <tr>
+                    <th colspan="4">교사 토큰 목록</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>이름</td>
+                    <td>토큰</td>
+                    <td>삭제</td>
+                </tr>
+                {% for teacher in teacher_token_list %}
+                    <tr>
+                        <td>{{ teacher['name'] }}</td>
+                        <td>{{ teacher['token'] }}</td>
+                        <td>
+                            <form action="/admin/teacher/token/delete" method="POST" >
+                                <input type="hidden" name="id" value="{{ teacher['id'] }}">
+                                <input type="submit" value="삭제">
+                            </form>
+                        </td>
+                    </tr>   
+                {% endfor %}
+            </tbody>
+    </table>
+</body>
+</html>
