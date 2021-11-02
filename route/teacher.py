@@ -1,4 +1,6 @@
-from flask import render_template, session, abort, request
+from flask import render_template, session, abort, request, flash, redirect
+from lib import db
+import bcrypt
 
 def teacher_get():
     if not 'teacher' in session:
