@@ -8,8 +8,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-	width: 300px;
-	height: 150px;
+	width: 600px;
+	height: 600px;
 	padding-bottom: 50px;
     margin: auto; 
 	background: #fff;
@@ -53,5 +53,5 @@
 	bottom: 0;
 	left: 0;
 	background: #000;
-	opacity: 0.3;
+	opacity: 0.1; /*밝기 조절*/
 }
