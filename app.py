@@ -38,7 +38,7 @@ def apply_page():
     else:
         return apply.apply_post()
 
-@app.route("/teacher")
+@app.route("/teacher", methods=['GET'])
 def teacher_site():
     return teacher.teacher_get()
 
