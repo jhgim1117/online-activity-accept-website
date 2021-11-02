@@ -12,7 +12,7 @@
       </script>
       {% endif %}
     {% endwith %}
-    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">
+    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">  
 </head>
 <body>
     {% if nickname %}
@@ -31,4 +31,5 @@
     {% block contents %}
     {% endblock %}
 </body>
+<script src="../static/js/{% block js %}{% endblock %}.js"></script>
 </html>
