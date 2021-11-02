@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}교사용 토큰 발급 - {% endblock %}
+
+{% block contents %}
     <h1>교사용 토큰 발급</h1>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -26,4 +21,4 @@
             </div>
         </form>
     </div>
-</html>
+{% endblock %}

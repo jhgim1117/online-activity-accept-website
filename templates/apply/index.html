@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>apply</title>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <script type="text/javascript">
-        alert("{{messages[-1]}}");
-      </script>
-      {% endif %}
-    {% endwith %}
-  </head>
-  <body>
+{% extends 'layout.html' %}
+{% block title %}활승 신청 - {% endblock %}
+
+{% block contents %}
     <div>
       <h1>활승 신청란</h1>
     </div>
@@ -72,18 +60,17 @@
       <h2>dfsd</h1>
    
    </div>
-  </body>
-</html>
-<script>
-    function ViewLayer(){
-//만일 Pop라는 녀석이 닫혀있다면??
-if(document.getElementById("Pop").style.display=="none"){
-   //열어주어라
-   document.getElementById("Pop").style.display='inline'
-//그렇지 않은 모든 경우라면??
-}else{
-   //닫아주어라
-   document.getElementById("Pop").style.display='none'
-}
-}
-</script>
+  <script>
+      function ViewLayer(){
+  //만일 Pop라는 녀석이 닫혀있다면??
+  if(document.getElementById("Pop").style.display=="none"){
+    //열어주어라
+    document.getElementById("Pop").style.display='inline'
+  //그렇지 않은 모든 경우라면??
+  }else{
+    //닫아주어라
+    document.getElementById("Pop").style.display='none'
+  }
+  }
+  </script>
+{% endblock %}
