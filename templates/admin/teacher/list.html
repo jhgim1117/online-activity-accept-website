@@ -1,42 +1,36 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교사 목록</title>
-    <style>
-        td, th {
-            border:1px solid black;
-        }
-    </style>
-</head>
-<body>
-    <table>
-            <thead>
-                <tr>
-                    <th colspan="5">교사 목록</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>이름</td>
-                    <td>ID</td>
-                    <td>삭제</td>
-                </tr>
-                {% for teacher in teacher_list %}
-                    <tr>
-                        <td>{{ teacher['name'] }}</td>
-                        <td>{{ teacher['nickname'] }}</td>
-                        <td>
-                            <form action="/admin/teacher/delete" method="POST" >
-                                <input type="hidden" name="id" value="{{ teacher['id'] }}">
-                                <input type="submit" value="삭제">
-                            </form>
-                        </td>
-                    </tr>   
-                {% endfor %}
-            </tbody>
-    </table>
-</body>
-</html>
+{% extends 'admin/layout.html' %}
+{% block title %}학생 목록 - {% endblock %}
+
+{% block contents %}
+<style>
+    td, th {
+        border:1px solid black;
+    }
+</style>
+<table>
+    <thead>
+        <tr>
+            <th colspan="5">교사 목록</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>이름</td>
+            <td>ID</td>
+            <td>삭제</td>
+        </tr>
+        {% for teacher in teacher_list %}
+            <tr>
+                <td>{{ teacher['name'] }}</td>
+                <td>{{ teacher['nickname'] }}</td>
+                <td>
+                    <form action="/admin/teacher/delete" method="POST" >
+                        <input type="hidden" name="id" value="{{ teacher['id'] }}">
+                        <input type="submit" value="삭제">
+                    </form>
+                </td>
+            </tr>   
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

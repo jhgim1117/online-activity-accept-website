@@ -3,9 +3,12 @@ from lib import db
 import bcrypt
 
 def teacher_get():
-    if not 'teacher' in session:
-        return abort(403)
-    return render_template('/teacher/index.html')
+    name=''
+    if 'teacher_id' in session:
+        if 'teacher_id' in session:
+            teacher_id=session['teacher_id']
+            name = db.db_execute('SELECT name FROM teacher WHERE teacher_id=?', (teacher_id,))[0]['name']
+    return render_template('teacher/index.html', name=name)
 
 def signup_post():
     name = request.form['name']
@@ -53,7 +56,7 @@ def login_post():
         
         session['teacher'] = True
         session['teacher_id'] = teacher_id
-        return redirect('/')
+        return redirect('/teacher')
     else:
         flash('pw가 일치하지 않습니다.')
         return redirect('/teacher/login')
@@ -62,7 +65,7 @@ def treat_teacher(act, is_get):
     if act == 'login':
         if 'teacher_id' in session:
             flash('이미 로그인 된 상태입니다.')
-            return redirect('/')
+            return redirect('/teacher')
         if is_get:
             return render_template('/teacher/login.html')
         else:
@@ -70,15 +73,15 @@ def treat_teacher(act, is_get):
     elif act == 'signup':
         if 'teacher_id' in session:
             flash('이미 로그인 된 상태입니다.')
-            return redirect('/')
+            return redirect('/teacher')
         if is_get:
             return render_template('/teacher/signup.html')
         else:
             return signup_post()
     elif act == "signout":
         if not is_get:
-            session.pop('student_id', None)
+            session.pop('teacher_id', None)
             session.pop('admin', None)
-            return redirect("/")
+            return redirect("/teacher")
         else:
             return abort(405)
