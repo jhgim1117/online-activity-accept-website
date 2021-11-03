@@ -5,14 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}온라인 활승</title>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <script type="text/javascript">
-        alert("{{messages[-1]}}");
-      </script>
-      {% endif %}
-    {% endwith %}
-    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">  
+    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">
+    <link rel="stylesheet" href="../static/stylesheets/popup.css">
 </head>
 <body>
     {% if nickname %}
@@ -30,6 +24,26 @@
     
     {% block contents %}
     {% endblock %}
+    
+    <div id="popup-alert" class="popup" style="display: none;">
+      <!--팝업-->
+      <div class="popup_layer"> <!--팝업창-->
+        <div class="text_area"><!--텍스트 영역-->
+          <p class="text" id="popup-alert-text"></p>
+        </div>
+        <div class="btn_area"><!--버튼 영역-->
+          <button type="button" name="button" class="btn">선택</button>
+          <button type="button" name="button" class="btn no">취소</button>
+        </div>
+      </div>
+      <div class="popup_dimmed"></div> <!--반투명 배경-->
+    </div>
 </body>
 <script src="../static/js/{% block js %}{% endblock %}.js"></script>
+<script src="../static/js/layer-popup.js"></script>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <script src="../static/js/popup-open.js" data-message = "{{messages[-1]}}" id="popup-alert-js"></script>
+  {% endif %}
+{% endwith %}
 </html>
