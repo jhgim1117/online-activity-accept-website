@@ -1,33 +1,16 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <script type="text/javascript">
-        alert("{{messages[-1]}}");
-      </script>
-      {% endif %}
-    {% endwith %}
-    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">
-</head>
-<body>
-  <h1>교사</h1>
-    {% if name %}
-    <form method="post" action="/teacher/signout">
-        <P><input type="submit" value="Logout"/></P>
-    </form>
-    <a href="/teacher/config">config</a>
-    {% else %}
-    <a href="/teacher/login">로그인</a>
-    <a href="/teacher/signup">회원가입</a>
-    {% endif %}
-    <a href="/apply">활승 확인</a>
-    <a href="/teacher">홈 화면</a>
-    <a href="/">메인 화면</a>
-    {% block contents %}
-    {% endblock %}
-</body>
-</html>
+{% extends 'layout.html' %}
+{% block layout %}
+<h1>교사</h1>
+  {% if name %}
+  <form method="post" action="/teacher/signout">
+      <P><input type="submit" value="Logout"/></P>
+  </form>
+  <a href="/teacher/config">config</a>
+  {% else %}
+  <a href="/teacher/login">로그인</a>
+  <a href="/teacher/signup">회원가입</a>
+  {% endif %}
+  <a href="/apply">활승 확인</a>
+  <a href="/teacher">홈 화면</a>
+  <a href="/">메인 화면</a>
+{% endblock %}

@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="../static/stylesheets/popup.css">
 </head>
 <body>
+    {% block layout %}
     <a href="/student">학생용 페이지</a>
     <a href="/teacher">교사용 페이지</a>
     <a href="/admin">관리자 페이지</a>
+    {% endblock %}
     
     {% block contents %}
     {% endblock %}
@@ -23,8 +25,7 @@
           <p class="text" id="popup-alert-text"></p>
         </div>
         <div class="btn_area"><!--버튼 영역-->
-          <button type="button" name="button" class="btn">선택</button>
-          <button type="button" name="button" class="btn no">취소</button>
+          <input type="button" name="button" class="popup-button btn alert-button" value="확인" onsubmit="return false">
         </div>
       </div>
       <div class="popup_dimmed"></div> <!--반투명 배경-->
@@ -34,7 +35,7 @@
 <script src="../static/js/layer-popup.js"></script>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-  <script src="../static/js/popup-open.js" data-message = "{{messages[-1]}}" id="popup-alert-js"></script>
+  <script src="../static/js/alert.js" data-message = "{{messages[-1]}}" id="popup-alert-js"></script>
   {% endif %}
 {% endwith %}
 </html>
