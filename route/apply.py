@@ -3,7 +3,7 @@ from lib import db
 import datetime
 
 def apply_get():
-    return render_template('/apply/index.html')
+    return render_template('/student/apply/index.html')
 
 def apply_post():
     req_student = session['student_id']

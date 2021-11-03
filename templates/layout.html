@@ -9,17 +9,8 @@
     <link rel="stylesheet" href="../static/stylesheets/popup.css">
 </head>
 <body>
-    {% if nickname %}
-    <form method="post" action="/student/signout">
-        <P><input type="submit" value="Logout"/></P>
-    </form>
-    <a href="/student/config">config</a>
-    {% else %}
-    <a href="/student/login">로그인</a>
-    <a href="/student/signup">회원가입</a>
-    <a href="/teacher/signup">교사용 회원가입</a>
-    {% endif %}
-    <a href="/apply">활승 신청</a>
+    <a href="/student">학생용 페이지</a>
+    <a href="/teacher">교사용 페이지</a>
     <a href="/admin">관리자 페이지</a>
     
     {% block contents %}
@@ -39,6 +30,7 @@
       <div class="popup_dimmed"></div> <!--반투명 배경-->
     </div>
 </body>
+<<<<<<< HEAD
 <script src="../static/js/{% block js %}{% endblock %}.js"></script>
 <script src="../static/js/layer-popup.js"></script>
 {% with messages = get_flashed_messages() %}
@@ -46,4 +38,6 @@
   <script src="../static/js/popup-open.js" data-message = "{{messages[-1]}}" id="popup-alert-js"></script>
   {% endif %}
 {% endwith %}
+=======
+>>>>>>> 4025846012a105566c96b87d4d51679254976e3f
 </html>

@@ -5,11 +5,11 @@ app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
 def index():
-    nickname = ''
-    if 'student_id' in session:
-        student_id=session['student_id']
-        nickname = db.db_execute('SELECT nickname FROM student WHERE id=?', (student_id,))[0]['nickname']
-    return render_template('index.html', nickname=nickname)
+    return render_template('index.html')
+
+@app.route("/student", methods = ['GET'])
+def student_site():
+    return student.student_get()
 
 @app.route("/student/<path:act>", methods=['GET', 'POST'])
 def student_act(act = None):
