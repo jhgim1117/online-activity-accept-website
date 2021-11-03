@@ -23,7 +23,7 @@ def login_post():
         if len(db.db_execute('SELECT * FROM admin WHERE student_id=?', (student_id,))):
             session['admin'] = True
         session['student_id'] = student_id
-        return redirect('/')
+        return redirect('/student')
     else:
         flash('pw가 일치하지 않습니다.')
         return redirect('/student/login')
@@ -112,7 +112,7 @@ def treat_student(act, is_get):
     if act == "login":
         if 'student_id' in session:
             flash("이미 로그인된 상태입니다.")
-            return redirect('/')
+            return redirect('/student')
         if is_get:
             return render_template('student/login.html')
         else:
@@ -120,7 +120,7 @@ def treat_student(act, is_get):
     elif act == "signup":
         if 'student_id' in session:
             flash("이미 로그인된 상태입니다.")
-            return redirect('/')
+            return redirect('/student')
         if is_get:
             return render_template('student/signup.html')
         else:
@@ -134,7 +134,7 @@ def treat_student(act, is_get):
         if not is_get:
             session.pop('student_id', None)
             session.pop('admin', None)
-            return redirect("/")
+            return redirect("/student")
         else:
             return abort(405)
     return abort(404)
