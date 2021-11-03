@@ -3,6 +3,14 @@ from lib import db
 import bcrypt
 import datetime
 
+def student_get():
+    name=''
+    if 'student_id' in session:
+        if 'student_id' in session:
+            student_id=session['student_id']
+            name = db.db_execute('SELECT name FROM student WHERE id=?', (student_id,))[0]['name']
+    return render_template('student/index.html', name=name)
+
 def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
     id_list = db.db_execute("SELECT id FROM student WHERE nickname=?", (id,))

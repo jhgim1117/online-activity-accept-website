@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}온라인 활승</title>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
       <script type="text/javascript">
@@ -15,17 +14,17 @@
     <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">
 </head>
 <body>
-  <h1>학생</h1>
+  <h1>교사</h1>
     {% if name %}
-    <form method="post" action="/student/signout">
+    <form method="post" action="/teacher/signout">
         <P><input type="submit" value="Logout"/></P>
     </form>
-    <a href="/student/config">config</a>
+    <a href="/teacher/config">config</a>
     {% else %}
-    <a href="/student/login">로그인</a>
-    <a href="/student/signup">회원가입</a>
+    <a href="/teacher/login">로그인</a>
+    <a href="/teacher/signup">회원가입</a>
     {% endif %}
-    <a href="/apply">활승 신청</a>
+    <a href="/apply">활승 확인</a>
     
     {% block contents %}
     {% endblock %}
