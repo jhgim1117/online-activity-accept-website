@@ -58,10 +58,17 @@
       <!--팝업-->
       <div class="popup_layer"> <!--팝업창-->
         <div class="text_area"><!--텍스트 영역-->
+          <div class="floor_list">
+            <button onclick="toggleImgBon1()">본관 1층</button>
+            <button onclick="toggleImgBon2()">본관 2층</button>
+            <button onclick="toggleImgBon3()">본관 3층</button>
+            <button onclick="toggleImgBon4()">본관 4층</button>
+            <button onclick="toggleImgTam123()">탐구관</button>
+          </div>
           <strong class="title">교내 평면도</strong>
           <p class="text">활승 장소를 클릭하세요</p>
 
-          <img src="../../static/files/tam123.PNG" style="width: 80%; height:auto;" >
+          <img id="schoolImg" src="../../static/files/tam123.PNG" style="width: 80%; height:auto;" >
         </div>
         <div class="btn_area"><!--버튼 영역-->
           <input type="button" name="button" class="popup-button btn" value="선택" onsubmit="return false">

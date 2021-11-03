@@ -56,7 +56,7 @@ def login_post():
         
         session['teacher'] = True
         session['teacher_id'] = teacher_id
-        return redirect('/')
+        return redirect('/teacher')
     else:
         flash('pw가 일치하지 않습니다.')
         return redirect('/teacher/login')
@@ -65,7 +65,7 @@ def treat_teacher(act, is_get):
     if act == 'login':
         if 'teacher_id' in session:
             flash('이미 로그인 된 상태입니다.')
-            return redirect('/')
+            return redirect('/teacher')
         if is_get:
             return render_template('/teacher/login.html')
         else:
@@ -73,7 +73,7 @@ def treat_teacher(act, is_get):
     elif act == 'signup':
         if 'teacher_id' in session:
             flash('이미 로그인 된 상태입니다.')
-            return redirect('/')
+            return redirect('/teacher')
         if is_get:
             return render_template('/teacher/signup.html')
         else:
@@ -82,6 +82,6 @@ def treat_teacher(act, is_get):
         if not is_get:
             session.pop('teacher_id', None)
             session.pop('admin', None)
-            return redirect("/")
+            return redirect("/teacher")
         else:
             return abort(405)
