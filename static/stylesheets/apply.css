@@ -1,0 +1,55 @@
+.content {
+	height: 5000px;
+}
+
+.popup {
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+	width: 700px;
+	height: 700px;
+	padding-bottom: 50px;
+    margin: auto; 
+	background: #fff;
+	z-index: 10;
+}
+
+.text_area {
+	padding: 50px 30px 30px;
+	text-align: center
+}
+
+.btn_area {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	overflow: hidden; /*float 해제*/
+}
+
+
+.btn {
+	float: left;
+	width: 100%;
+	height: 100%;
+	font-size: 15px;
+	font-weight: bold;
+	border: 0;
+	background: pink;
+    /*button태그의 기본 속성 : box-sizing:border-box;
+    따라서 기본적으로 width값 안에 border영역까지 포함됨*/
+}
+
+.popup_dimmed {
+	position: absolute; /*띄워줌*/
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.1; /*밝기 조절*/
+	pointer-events:none;
+}
