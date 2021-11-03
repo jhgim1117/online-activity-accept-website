@@ -33,7 +33,7 @@ def admin_act(act = None):
     elif request.method == 'POST':
         return admin.treat_admin(act, False)
 
-@app.route('/apply', methods=['GET', 'POST'])
+@app.route('/student/apply', methods=['GET', 'POST'])
 def apply_page():
     if not 'student_id' in session:
         abort(403)
