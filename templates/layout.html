@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="../static/stylesheets/popup.css">
 </head>
 <body>
-    <a href="/student">학생용 페이지</a>
-    <a href="/teacher">교사용 페이지</a>
-    <a href="/admin">관리자 페이지</a>
-    
+  {% if 'student_id' in session %}
+  <a href="/student">학생용 페이지</a>
+
+  {% elif 'teacher_id' in session %}
+  <a href="/teacher">교사용 페이지</a>
+
+  {% else %}
+    <a href="/student/login">학생용 페이지(로그인)</a>
+    <a href="/teacher/login">교사용 페이지(로그인)</a>
+  
+    {% endif %}
     {% block contents %}
     {% endblock %}
     

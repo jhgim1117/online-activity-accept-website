@@ -9,10 +9,14 @@ def index():
 
 @app.route("/student", methods = ['GET'])
 def student_site():
+    if 'teacher_id' in session:
+        return abort(403)
     return student.student_get()
 
 @app.route("/student/<path:act>", methods=['GET', 'POST'])
 def student_act(act = None):
+    if 'teacher_id' in session:
+        abort(403)
     if request.method == 'GET':
         return student.treat_student(act, True)
     elif request.method == 'POST':
@@ -40,10 +44,14 @@ def apply_page():
 
 @app.route("/teacher", methods=['GET'])
 def teacher_site():
+    if 'student_id' in session:
+        abort(403)
     return teacher.teacher_get()
 
 @app.route("/teacher/<path:act>", methods=['GET', 'POST'])
 def teacher_act(act = None):
+    if 'student_id' in session:
+        return abort(403)
     if request.method == 'GET':
         return teacher.treat_teacher(act, True)
     elif request.method == 'POST':
