@@ -5,11 +5,16 @@ app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
 def index():
-    nickname = ''
-    if 'student_id' in session:
-        student_id=session['student_id']
-        nickname = db.db_execute('SELECT nickname FROM student WHERE id=?', (student_id,))[0]['nickname']
-    return render_template('index.html', nickname=nickname)
+    print(session)
+    name=''
+    if 'student_id' in session or 'teacher_id' in session:
+        if 'student_id' in session:
+            student_id=session['student_id']
+            name = db.db_execute('SELECT name FROM student WHERE id=?', (student_id,))[0]['name']
+        else:
+            teacher_id = session['teacher_id']
+            name = db.db_execute('SELECT name FROM teacher WHERE teacher_id=?', (teacher_id, ))[0]['name']
+    return render_template('index.html', name=name)
 
 @app.route("/student/<path:act>", methods=['GET', 'POST'])
 def student_act(act = None):
