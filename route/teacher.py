@@ -75,3 +75,10 @@ def treat_teacher(act, is_get):
             return render_template('/teacher/signup.html')
         else:
             return signup_post()
+    elif act == "signout":
+        if not is_get:
+            session.pop('student_id', None)
+            session.pop('admin', None)
+            return redirect("/")
+        else:
+            return abort(405)
