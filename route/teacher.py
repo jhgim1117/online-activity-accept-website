@@ -15,6 +15,7 @@ def signup_post():
     nickname = request.form['nickname']
     plain_pw = request.form['PW']
     token = request.form['token']
+    subject_id = request.form['subject']
 
     if not(name and nickname and plain_pw and token):
         flash('입력되지 않은 정보가 있습니다.')
@@ -29,7 +30,7 @@ def signup_post():
         flash('이미 존재하는 id입니다.')
         return redirect('/teacher/signup')
     
-    token_list = db.db_execute("SELECT token FROM teacher_token WHERE name=?", (name, ))
+    token_list = db.db_execute("SELECT token FROM teacher_token WHERE name=? AND subject_id=?", (name, subject_id))
     if len(token_list):
         if int(token) != int(token_list[0]['token']):
             flash('토큰이 일치하지 않습니다.')
@@ -40,7 +41,7 @@ def signup_post():
     db.db_execute('DELETE FROM teacher_token WHERE name=?', (name, ))
 
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    db.db_execute("INSERT INTO teacher (name, nickname, pw) values (?, ?, ?);", (name, nickname, hashed_pw))
+    db.db_execute("INSERT INTO teacher (name, nickname, pw, subject_id) values (?, ?, ?, ?);", (name, nickname, hashed_pw, subject_id))
     flash('회원가입되었습니다. 로그인해주시기 바랍니다.')
     return redirect('/teacher/login')
 

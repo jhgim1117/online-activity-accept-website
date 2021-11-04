@@ -42,9 +42,10 @@ def student_delete():
 
 def teacher_token_post():
     name = request.form["name"]
+    subject_id = request.form['subject']
     token = random.randint(100000, 999999)
-    if not db.db_execute("SELECT * FROM teacher_token WHERE name=?", (name, )):
-        db.db_execute("INSERT INTO teacher_token (name, token) VALUES (?, ?)", (name, token))
+    if not db.db_execute("SELECT * FROM teacher_token WHERE name=? AND subject_id=?", (name, subject_id)):
+        db.db_execute("INSERT INTO teacher_token (name, token, subject_id) VALUES (?, ?, ?)", (name, token, subject_id))
     else:
         flash("이미 토큰이 발급되어있습니다.")
     return redirect('/admin/teacher/token')
