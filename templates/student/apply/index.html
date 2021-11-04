@@ -1,5 +1,6 @@
 {% extends 'student/layout.html' %}
 {% block title %}활승 신청 - {% endblock %}
+{% block js %}apply{% endblock %}
 {% block contents %}
     <div>
       <h1>활승 신청란</h1>
@@ -33,7 +34,7 @@
             <option value="3f">3층</option>
             <option value="4f">4층</option>
           </select>
-          <input type="button" value="열어주세요" class="popup-button"  onsubmit="return false">
+          <input type="button" value="열어주세요" class="place-select-button"  onsubmit="return false">
         </div>
         <div>
           <label for="reason"> 활승 사유 </label>
@@ -54,7 +55,7 @@
         </div>
       </form>
     </div>
-    <div class="popup">
+    <div class="popup" id="place-select-popup">
       <!--팝업-->
       <div class="popup_layer"> <!--팝업창-->
         <div class="text_area"><!--텍스트 영역-->
@@ -71,7 +72,7 @@
           <img id="schoolImg" src="../../static/files/tam123.PNG" style="width: 80%; height:auto;" >
         </div>
         <div class="btn_area"><!--버튼 영역-->
-          <input type="button" name="button" class="popup-button btn" value="선택" onsubmit="return false">
+          <input type="button" name="button" class="btn place-select-button" value="선택" onsubmit="return false">
           <!-- <button type="button" name="button" class="btn no">취소</button> -->
         </div>
       </div>
