@@ -9,7 +9,7 @@ def student_get():
         if 'student_id' in session:
             student_id=session['student_id']
             name = db.db_execute('SELECT name FROM student WHERE id=?', (student_id,))[0]['name']
-    return render_template('student/index.html', name=name)
+    return render_template('student/index.html', name=name, session=session)
 
 def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
@@ -89,16 +89,45 @@ def config_post():
     name = request.form["name"]
     num = int(request.form["num"])
     generation = int(request.form["generation"])
-    Id = request.form["ID"]
+    nickname = request.form["ID"]
     present_pw = request.form["now password"] #사용자가 작성한 기존 비번
     new_pw = request.form["new password"] #바꿀 비번
     renew_pw = request.form["renew password"] #바꿀 비번 확인
-    
+    now = datetime.datetime.now()
+
     hashed_pw = db.db_execute('SELECT pw FROM student WHERE id=?', (student_id,))[0]['pw'] #DB 상의 기존 비번 들고오기
+    if not (nickname  and name and generation and num):
+        flash('입력되지 않은 데이터가 있습니다.')
+        return redirect('/student/config')
+    
+    able_generation = [now.year-1985, now.year-1984, now.year-1983]
+    if not int(generation) in able_generation:
+        flash('기수 입력이 잘못되었습니다.')
+        return redirect('/student/config')
+
+    if len(name) < 2 or len(name) > 10:
+        flash('이름 길이가 범위에서 벗어났습니다.')
+        return redirect('/student/config')
+        
+    str_num = str(num)
+    if (int(str_num[0]) not in range(1, 4)) or (int(str_num[1]) not in range(1, 6)) or (int(str_num[2:]) not in range(1, 25)):
+        flash('학번 입력이 잘못되었습니다.')
+        return redirect('/student/comfig')
+
+    id_list = db.db_execute("SELECT id FROM student WHERE nickname=?", (nickname,))
+    if len(id_list):
+        if db.db_execute("SELECT nickname FROM student WHERE id=?", (student_id, ))[0]['nickname'] != nickname:
+            flash('이미 존재하는 ID 입니다.')
+            return redirect('/student/config')
+
+    if not new_pw:
+        new_pw = present_pw
+        renew_pw = present_pw        
+
     if new_pw == renew_pw: #비번 확인
         if bcrypt.checkpw(present_pw.encode('utf-8'),hashed_pw.encode('utf-8')): #DB 기존 비번과 입력한 비번이 일치하면 DB업데이트 
             hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-            db.db_execute("UPDATE student SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, Id, hashed_pw, student_id))
+            db.db_execute("UPDATE student SET name=?, num=?, generation=?, nickname=?, pw=? WHERE id=?", (name, num, generation, nickname, hashed_pw, student_id))
             flash("성공적으로 변경되었습니다!")
             return redirect("/student/config")
         else:

@@ -25,7 +25,7 @@
                 <td>{{ teacher['nickname'] }}</td>
                 <td>
                     <form action="/admin/teacher/delete" method="POST" >
-                        <input type="hidden" name="id" value="{{ teacher['id'] }}">
+                        <input type="hidden" name="id" value="{{ teacher['teacher_id'] }}">
                         <input type="submit" value="삭제">
                     </form>
                 </td>

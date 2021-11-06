@@ -13,5 +13,7 @@
     <a href="/student/apply">활승 신청</a>
     
     <a href="/student">홈 화면</a>
+    {% if 'admin' in session %}
     <a href="/admin">관리자 페이지</a>
+    {% endif %}
 {% endblock %}

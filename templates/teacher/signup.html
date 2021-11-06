@@ -38,6 +38,13 @@
           </select>
         </div>
         <div>
+            <label for="homeroom"> 담당 반  <input type="number" name="homeroom" id="number">
+               <br> ex) 1학년 1반→11 없으면 00
+               <br>*꼭 두 자리 숫자로 입력해주세요
+            </label>
+            
+        </div>
+        <div>
             <label for="token">토큰</label>
             <input type="number" name="token" id="token">
         </div>
@@ -45,5 +52,5 @@
             <input type="submit" id="signup_button" name="button" value="Sign Up">
         </div>
     </form>
-</div>
+</div>  
 {% endblock %}

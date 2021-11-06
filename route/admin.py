@@ -70,7 +70,7 @@ def teacher_delete():
 def teacher_list():
     teacher_list_in_db = db.db_execute("SELECT * FROM teacher")
     return render_template(
-        '/teacher/list.html',
+        'admin/teacher/list.html',
         teacher_list = teacher_list_in_db
     )
 
@@ -106,6 +106,14 @@ def treat_admin(act, is_get):
                 else:
                     return abort(405)
     elif path_list[0] == 'teacher':
+        if path_list[1] == 'list':
+            if is_get:
+                return teacher_list()
+        if path_list[1] == 'delete':
+            if is_get:
+                return abort(405)
+            else:
+                return teacher_delete()
         if path_list[1] == 'token':
             if len(path_list) == 2:
                 if is_get:
