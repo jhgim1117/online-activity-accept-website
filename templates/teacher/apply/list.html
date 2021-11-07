@@ -1,0 +1,38 @@
+{% extends 'teacher/layout.html' %}
+{% block title %}신청 목록-{% endblock %}
+
+{% block contents %}
+    <style>
+        td, th {
+            border: 1px solid black;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="8">신청 목록</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>이름</td>
+                <td>신청 시간</td>
+                <td>활승 날짜</td>
+                <td>시작 시간</td>
+                <td>종료 시간</td>
+                <td>활동 장소</td>
+                <td>활동 사유</td>
+                <td>승인</td>
+            </tr>
+            {% for apply in apply_list %}
+                <tr>
+                    <td>{{ apply['name']] }}</td>
+                    <td>{{ apply['datetime']}}</td>
+                    <td>{{ apply['req_date'] }}</td>
+                    <td>{{ apply['req_start_time'] }}</td>
+                    <td>{{ apply['req_end_time'] }}</td>
+                    <td>{{ apply['place'] }}</td>
+                    <td>{{ apply['reason'] }}</td>
+                </tr>
+        </tbody>
+    </table>

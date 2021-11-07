@@ -68,7 +68,25 @@ def login_post():
         flash('pw가 일치하지 않습니다.')
         return redirect('/teacher/login')
 
+def apply_index():
+    teacher_id = session['teacher_id']
+    teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
+    homeroom = teacher_info['homeroom']
+    subject_id = teacher_info['subject_id']
+    return render_template(
+        'teacher/apply/index.html',
+        homeroom = homeroom,
+        subject_id = subject_id,
+        # dayduty = dayduty
+    )
+
+def apply_homeroom():
+    homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id']))[0]['homeroom']
+    apply_list = db.db_execute("SELECT * FROM apply WHERE num/100=?", (homeroom, ))
+
+    
 def treat_teacher(act, is_get):
+    path_list = act.split('/')
     if act == 'login':
         if 'teacher_id' in session:
             flash('이미 로그인 된 상태입니다.')
@@ -92,3 +110,12 @@ def treat_teacher(act, is_get):
             return redirect("/teacher")
         else:
             return abort(405)
+    elif path_list[0] == 'apply':
+        if len(path_list) == 1:
+            return apply_index()
+        elif path_list[1] == 'homeroom':
+            pass
+        elif path_list[1] == 'RnE':
+            pass
+        elif path_list[1] == 'dayduty':
+            pass
