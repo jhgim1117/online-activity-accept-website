@@ -53,6 +53,10 @@ def signup_post():
 
 def login_post():
     id, plain_pw = request.form["ID"], request.form["password"] #로그인할 때 아이디, 비번 get
+    try:
+        dayduty = bool(request.form['dayduty'])
+    except:
+        dayduty = False
     id_list = db.db_execute("SELECT teacher_id FROM teacher WHERE nickname=?", (id,))
     if not len(id_list):
         flash("id가 존재하지 않습니다.")
@@ -63,6 +67,7 @@ def login_post():
         
         session['teacher'] = True
         session['teacher_id'] = teacher_id
+        session['dayduty'] = dayduty
         return redirect('/teacher')
     else:
         flash('pw가 일치하지 않습니다.')
@@ -73,11 +78,12 @@ def apply_index():
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     homeroom = teacher_info['homeroom']
     subject_id = teacher_info['subject_id']
+    dayduty = session['dayduty']
     return render_template(
         'teacher/apply/index.html',
         homeroom = homeroom,
         subject_id = subject_id,
-        # dayduty = dayduty
+        dayduty = dayduty
     )
 
 def apply_homeroom():
