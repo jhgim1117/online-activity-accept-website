@@ -26,4 +26,4 @@ def apply_post():
         flash('활동 시간이 올바르지 않습니다.')
         return redirect('/apply')
     db.db_execute("insert into apply (datetime, req_student, req_date, req_start_time, req_end_time, place, reason, teacher_id, num, name) values ((SELECT datetime('now', '+9 hours')), ?, ?, ?, ?, ?, ?, ?, ?, ?);", (req_student, req_date, req_start_time, req_end_time, place, reason, teacher, num, name))
-    return ''
+    return redirect(location)
