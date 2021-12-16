@@ -42,4 +42,10 @@ if __name__ == '__main__':
     # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
     # show_db_info('apply')
-    pass
+    show_db_info('teacher')
+    subject_id = db_execute('SELECT subject_id FROM teacher WHERE teacher_id=?', (9, ))[0]['subject_id']
+    print(subject_id)
+    user_ids = db_execute("SELECT user_id FROM rne WHERE rne_id=?", (subject_id, ))
+    print(user_ids)
+    user_id_list = [list(i.values())[0] for i in user_ids]
+    print(user_id_list)

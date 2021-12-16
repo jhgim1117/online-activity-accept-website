@@ -97,7 +97,9 @@ def apply_homeroom():
 
 def apply_RnE():
     subject_id = db.db_execute('SELECT subject_id FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['subject_id']
-    apply_list = db.db_execute()
+    user_ids = db.db_execute("SELECT user_id FROM rne WHERE rne_id=?", (subject_id, ))
+    user_id_list = [list(i.values())[0] for i in user_ids]
+    print(user_id_list)
 
 def treat_teacher(act, is_get):
     path_list = act.split('/')
@@ -128,8 +130,11 @@ def treat_teacher(act, is_get):
         if len(path_list) == 1:
             return apply_index()
         elif path_list[1] == 'homeroom':
-            apply_homeroom()
+            return apply_homeroom()
         elif path_list[1] == 'RnE':
-            pass
+            apply_RnE()
         elif path_list[1] == 'dayduty':
-            pass
+            return render_template(
+                '/teacher/apply/list.html',
+                apply = db.db_execute("SELECT * FROM apply")
+            )
