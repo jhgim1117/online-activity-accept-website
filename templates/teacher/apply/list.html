@@ -26,7 +26,7 @@
             </tr>
             {% for apply in apply_list %}
                 <tr>
-                    <td>{{ apply['name']] }}</td>
+                    <td>{{ apply['name'] }}</td>
                     <td>{{ apply['datetime']}}</td>
                     <td>{{ apply['req_date'] }}</td>
                     <td>{{ apply['req_start_time'] }}</td>
@@ -34,5 +34,7 @@
                     <td>{{ apply['place'] }}</td>
                     <td>{{ apply['reason'] }}</td>
                 </tr>
+            {% endfor %}
         </tbody>
     </table>
+{% endblock %}

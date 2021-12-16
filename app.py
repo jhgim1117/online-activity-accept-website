@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, abort
 from lib import db
-from route import student, admin, apply, teacher
+from route import student, admin, teacher
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -32,15 +32,6 @@ def admin_act(act = None):
         return admin.treat_admin(act, True)
     elif request.method == 'POST':
         return admin.treat_admin(act, False)
-
-@app.route('/student/apply', methods=['GET', 'POST'])
-def apply_page():
-    if not 'student_id' in session:
-        abort(403)
-    if request.method == 'GET':
-        return apply.apply_get()
-    else:
-        return apply.apply_post()
 
 @app.route("/teacher", methods=['GET'])
 def teacher_site():

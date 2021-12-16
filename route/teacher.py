@@ -87,10 +87,18 @@ def apply_index():
     )
 
 def apply_homeroom():
-    homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id']))[0]['homeroom']
-    apply_list = db.db_execute("SELECT * FROM apply WHERE num/100=?", (homeroom, ))
+    homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['homeroom']
+    apply_list = db.db_execute("SELECT * FROM apply WHERE num/100=?", (int(homeroom), ))
+    print(apply_list)
+    return render_template(
+        'teacher/apply/list.html',
+        apply = apply_list
+    )
 
-    
+def apply_RnE():
+    subject_id = db.db_execute('SELECT subject_id FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['subject_id']
+    apply_list = db.db_execute()
+
 def treat_teacher(act, is_get):
     path_list = act.split('/')
     if act == 'login':
@@ -120,7 +128,7 @@ def treat_teacher(act, is_get):
         if len(path_list) == 1:
             return apply_index()
         elif path_list[1] == 'homeroom':
-            pass
+            apply_homeroom()
         elif path_list[1] == 'RnE':
             pass
         elif path_list[1] == 'dayduty':

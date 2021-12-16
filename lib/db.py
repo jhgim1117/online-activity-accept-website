@@ -39,6 +39,7 @@ if __name__ == '__main__':
     # db_execute("CREATE TABLE admin(admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, student_id INTEGER NOT NULL)")
     # db_execute("CREATE TABLE teacher(teacher_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
     # db_execute("CREATE TABLE teacher_token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, token INTEGER NOT NULL)")
-    db_execute('ALTER TABLE apply ADD COLUMN name TEXT')
-    check_table_info('apply')
+    # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
+    # show_db_info('apply')
+    pass

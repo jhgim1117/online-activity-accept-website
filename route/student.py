@@ -35,6 +35,7 @@ def signup_post():
     num = request.form["num"]
     token = request.form['token']
     now = datetime.datetime.now()
+    rne = request.form["rne"]
 
     # 빈칸 거르기
     if not (nickname and plain_pw and name and generation and num and token):
@@ -71,7 +72,8 @@ def signup_post():
     db.db_execute('DELETE FROM student_token WHERE num=? AND generation=?', (num, generation))
 
     hashed_pw = bcrypt.hashpw(plain_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    db.db_execute("insert into student (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?);", (name, num, generation, nickname, hashed_pw))
+    db.db_execute("insert into student (name, num, generation, nickname, pw) values (?, ?, ?, ?, ?)", (name, num, generation, nickname, hashed_pw))
+    db.db_execute("insert into rne (rne_id) values (?)", (int(rne), ))
     flash('회원가입되었습니다. 로그인해주시기 바랍니다.')
     return redirect('/student/login')
     
@@ -137,6 +139,32 @@ def config_post():
         flash("새 비밀번호와 다시 확인 비밀번호가 다릅니다!")
         return redirect("/student/config")
 
+def apply_get():
+    return render_template('/student/apply/index.html')
+
+def apply_post():
+    req_student = session['student_id']
+    req_date = request.form['req_date']
+    req_start_time = request.form['req_start_time']
+    req_end_time = request.form['req_end_time']
+    place = request.form['place']
+    reason = request.form['reason']
+    teacher = request.form['teacher']
+    num = db.db_execute("SELECT num FROM student WHERE id=?", (req_student, ))[0]['num']
+    name = db.db_execute("SELECT name FROM student WHERE id=?", (req_student, ))[0]['name']
+
+    # 빈칸 거르기
+    if not (req_date and req_start_time and req_end_time and place and reason and teacher):
+        flash('입력되지 않은 데이터가 있습니다.')
+    req_date = datetime.date.fromisoformat(req_date)
+    formatted_req_start_time = datetime.time.fromisoformat(req_start_time)
+    formatted_req_end_time = datetime.time.fromisoformat(req_end_time)
+    if formatted_req_start_time >= formatted_req_end_time:
+        flash('활동 시간이 올바르지 않습니다.')
+        return redirect('/student/apply')
+    db.db_execute("insert into apply (datetime, req_student, req_date, req_start_time, req_end_time, place, reason, teacher_id, num, name) values ((SELECT datetime('now', '+9 hours')), ?, ?, ?, ?, ?, ?, ?, ?, ?);", (req_student, req_date, req_start_time, req_end_time, place, reason, teacher, num, name))
+    return redirect("/student/apply")
+
 def treat_student(act, is_get):  
     if act == "login":
         if 'student_id' in session:
@@ -166,4 +194,9 @@ def treat_student(act, is_get):
             return redirect("/student")
         else:
             return abort(405)
+    elif act == "apply":
+        if is_get:
+            return apply_get()
+        else:
+            return apply_post()
     return abort(404)
