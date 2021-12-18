@@ -32,7 +32,7 @@ def signup_post():
         return redirect('/teacher/signup')
     
     str_homeroom = str(homeroom)
-    if not((int(str_homeroom[0]) in range(1, 4) and int(str_homeroom[1]) in range(1, 6)) or homeroom == 0):
+    if not((int(str_homeroom[0]) in range(1, 4) and int(str_homeroom[1]) in range(1, 6)) or str_homeroom == '00'):
         flash('학반 정보를 안내에 따라 정확히 입력해주세요.')
         return redirect('/teacher/signup')
 
