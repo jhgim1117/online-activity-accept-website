@@ -42,5 +42,4 @@ if __name__ == '__main__':
     # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
     # show_db_info('apply')
-    show_db_info('rne')
-    show_db_info('student')
+    check_table_info('apply')
