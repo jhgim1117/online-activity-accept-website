@@ -23,6 +23,7 @@
                 <td>활동 장소</td>
                 <td>활동 사유</td>
                 <td>승인</td>
+                <td>거부</td>
             </tr>
             {% for apply in apply_list %}
                 <tr>
@@ -33,6 +34,18 @@
                     <td>{{ apply['req_end_time'] }}</td>
                     <td>{{ apply['place'] }}</td>
                     <td>{{ apply['reason'] }}</td>
+                    <td>
+                        <form action="/teacher/apply/confirm" method="POST">
+                            <input type="hidden" name="id2confirm" value="{{ apply['req_id] }}">
+                            <input type="submit" value="승인">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/teacher/apply/reject" method="POST">
+                            <input type="hidden" name="id2reject" value="{{ apply['req_id'] }}">
+                            <input type="submit" value="거부">
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
