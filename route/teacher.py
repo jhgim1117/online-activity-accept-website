@@ -89,10 +89,9 @@ def apply_index():
 def apply_homeroom():
     homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['homeroom']
     apply_list = db.db_execute("SELECT * FROM apply WHERE num/100=?", (int(homeroom), ))
-    print(apply_list)
     return render_template(
         'teacher/apply/list.html',
-        apply = apply_list
+        apply_list = apply_list
     )
 
 def apply_RnE():
