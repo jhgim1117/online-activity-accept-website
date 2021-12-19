@@ -46,6 +46,7 @@ def teacher_act(act = None):
     if request.method == 'GET':
         return teacher.treat_teacher(act, True)
     elif request.method == 'POST':
+        
         return teacher.treat_teacher(act, False)
 
 if __name__ == '__main__':

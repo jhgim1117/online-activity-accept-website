@@ -10,7 +10,7 @@
     <table>
         <thead>
             <tr>
-                <th colspan="8">신청 목록</th>
+                <th colspan="9">신청 목록</th>
             </tr>
         </thead>
         <tbody>
@@ -35,14 +35,14 @@
                     <td>{{ apply['place'] }}</td>
                     <td>{{ apply['reason'] }}</td>
                     <td>
-                        <form action="/teacher/apply/confirm" method="POST">
-                            <input type="hidden" name="id2confirm" value="{{ apply['req_id] }}">
+                        <form action="/teacher/apply/{{ act }}/allow" method="POST">
+                            <input type="hidden" name="req_id" value="{{ apply['req_id'] }}">
                             <input type="submit" value="승인">
                         </form>
                     </td>
                     <td>
-                        <form action="/teacher/apply/reject" method="POST">
-                            <input type="hidden" name="id2reject" value="{{ apply['req_id'] }}">
+                        <form action="/teacher/apply/{{ act }}/reject" method="POST">
+                            <input type="hidden" name="req_id" value="{{ apply['req_id'] }}">
                             <input type="submit" value="거부">
                         </form>
                     </td>

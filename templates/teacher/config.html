@@ -1,0 +1,38 @@
+{% extends '/teacher/layout.html' %}
+{% block title %} 정보 수정 - {% endblock %}
+
+{% block contents %}
+    <h1>정보 수정</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {% endif %}
+    {% endwith %}
+    <form action="config" method="POST">
+        <div>
+            <label for="name">이름</label>
+            <input type="text" name="name" id="name" value="{{ name }}">
+        </div>
+        <div>
+            <label for="ID">ID</label>
+            <input type="text" name="ID" id="ID" value="{{ ID }}">
+        </div>
+        <div>
+            <label for="newPW">새 비밀번호</label>
+            <input type="password" name="newPW" id="newPW">
+        </div>
+        <div>
+            <label for="renewPW">다시</label>
+            <input type="password" name="renewPW" id=renewPW>
+        </div>
+        <div>
+            <label for="nowPW">현재 비밀번호</label>
+            <input type="password" name="nowPW" id=nowPW>
+        </div>
+        <div>
+            <input type="submit" id="config button" name="button" value="config">
+        </div>
+    </form>
+{% endblock %}

@@ -22,7 +22,7 @@ def check_table_info(tbl_name):
         print(f"type of data : {column_info['type']}")
         print('------------------')
 
-def show_db_info(table):
+def show_table_info(table):
     print(db_execute("SELECT * FROM " + table))
 
 ##use example 1: print(db_execute("SELECT * FROM student"))
@@ -41,5 +41,5 @@ if __name__ == '__main__':
     # db_execute("CREATE TABLE teacher_token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, token INTEGER NOT NULL)")
     # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
-    # show_db_info('apply')
-    check_table_info('apply')
+    # show_db_info('confirmed_apply')
+    check_table_info('teacher')
