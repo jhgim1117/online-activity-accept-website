@@ -3,6 +3,7 @@
 }
 
 .popup {
+	display: none;
 	position: absolute;
     top: 0;
     right: 0;
@@ -52,4 +53,13 @@
 	background: #000;
 	opacity: 0.1; /*밝기 조절*/
 	pointer-events:none;
+}
+
+.ghostbtn {
+	position: absolute;
+	width: 50px;
+	height: 30px;
+    top: 230px;
+    right: 480px;
+	background: red;
 }
