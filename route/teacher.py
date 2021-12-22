@@ -104,7 +104,7 @@ def config_post():
     if new_pw == renew_pw: #비번 확인
         if bcrypt.checkpw(present_pw.encode('utf-8'),hashed_pw.encode('utf-8')): #DB 기존 비번과 입력한 비번이 일치하면 DB업데이트 
             hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-            db.db_execute("UPDATE student SET name=?, nickname=?, pw=? WHERE id=?", (name, nickname, hashed_pw, teacher_id, ))
+            db.db_execute("UPDATE teacher SET name=?, nickname=?, pw=? WHERE id=?", (name, nickname, hashed_pw, teacher_id, ))
             flash("성공적으로 변경되었습니다!")
             return redirect("/teacher/config")
         else:
@@ -173,7 +173,6 @@ def apply_dayduty():
 
 def apply_allow():
     allow_id = request.form['req_id']
-    print(allow_id)
     allowed = 1
     db.db_execute("INSERT INTO confirmed_apply (req_id, allowed) VALUES (?, ?)", (allow_id, allowed, ))
 
