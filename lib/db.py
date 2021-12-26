@@ -43,4 +43,4 @@ if __name__ == '__main__':
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
     # show_db_info('confirmed_apply')
     # show_table_info('admin')
-    print(db_execute("SELECT req_id FROM confirmed_apply WHERE allowed=1"))
+    check_table_info("apply")

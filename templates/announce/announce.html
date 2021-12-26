@@ -25,24 +25,31 @@
                     <td>이름</td>
                     <td>활동 날짜</td>
                 </tr>
-                {% for allowed_apply in allowed_apply_list %}
+                {% for i in range(l) %}
                     <tr>
-                        <td>{{ allowed_apply['name'] }}</td>
-                        <td>{{ allowed_apply['req_date'] }}</td>
-                    </tr>   
-                {% endfor %}
+                        {% if i <= len_allowed-1 %}
+                            <td>{{ allowed_apply_list[i]['name'] }}</td>
+                            <td>{{ allowed_apply_list[i]['req_date'] }}</td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
+                        {% endif %}
+        
+                        {% if i <= len_rejected-1 %}
+                            <td>{{ rejected_apply_list[i]['name'] }}</td>
+                            <td>{{ rejected_apply_list[i]['req_date'] }}</td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
+                        {% endif %}
 
-                {% for rejected_apply in rejected_apply_list %}
-                    <tr>
-                        <td>{{ rejected_apply['name'] }}</td>
-                        <td>{{ rejected_apply['req_date'] }}</td>
-                    </tr>
-                {% endfor %}
-
-                {% for not_confirmed_apply in not_confirmed_apply_list %}
-                    <tr>
-                        <td>{{ not_confirmed_apply['name'] }}</td>
-                        <td>{{ not_confirmed_apply['req_date'] }}</td>
+                        {% if i <= len_not_confirmed-1 %}
+                            <td>{{ not_confirmed_apply_list[i]['name'] }}</td>
+                            <td>{{ not_confirmed_apply_list[i]['req_date'] }}</td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

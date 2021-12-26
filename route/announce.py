@@ -30,5 +30,8 @@ def announce_board():
         allowed_apply_list = allowed_apply_list,
         rejected_apply_list = rejected_apply_list,
         not_confirmed_apply_list = not_confirmed_apply_list,
+        len_allowed = len(allowed_apply_list),
+        len_rejected = len(rejected_apply_list),
+        len_not_confirmed = len(not_confirmed_apply_list),
         l = max([len(allowed_apply_list), len(rejected_apply_list), len(not_confirmed_apply_list)])
     )

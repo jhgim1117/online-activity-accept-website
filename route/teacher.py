@@ -138,13 +138,13 @@ def apply_homeroom():
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
-    homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['homeroom']
-    req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
-    req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
-    if len(req_id_tuple) != 1:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id IN ? AND num/100=? AND req_date >= ?", (int(homeroom), str(req_id_tuple), today, ))
-    else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ?", (req_ids[0]['req_id'], today))
+    homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (teacher_id, ))[0]['homeroom']
+    req_ids = [list(i.values())[0] for i in db.db_execute("SELECT req_id FROM apply WHERE num/100=? EXCEPT SELECT req_id FROM confirmed_apply", (homeroom, ))]
+    apply_list = list()
+    for req_id in req_ids:
+        apply = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date>=?", (req_id, today, ))
+        if len(apply):
+            apply_list.append(apply[0])
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
@@ -158,31 +158,33 @@ def apply_RnE():
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
     subject_id = db.db_execute('SELECT subject_id FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['subject_id']
-    user_ids = db.db_execute("SELECT user_id FROM rne WHERE rne_id=?", (subject_id, ))
-    user_id_tuple = tuple([list(i.values())[0] for i in user_ids])
-    req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
-    req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
-    if len(req_id_tuple) != 1:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_student IN ? AND req_id IN ? AND req_date >= ?", (str(user_id_tuple), str(req_id_tuple), today, ))
-    else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ?", (req_ids[0]['req_id'], today, ))
+    student_ids = [list(i.values())[0] for i in db.db_execute("SELECT user_id FROM rne WHERE rne_id=?", (subject_id, ))]
+    req_ids = list()
+    for student_id in student_ids:
+        req_ids_raw = db.db_execute("SELECT req_id FROM apply WHERE req_student=? AND req_date>=? EXCEPT SELECT req_id FROM confirmed_apply", (student_id, today, ))
+        for req_id_raw in req_ids_raw:
+            req_ids.append(req_id_raw['req_id'])
+    apply_list = list()
+    for req_id in req_ids:
+        apply = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_id, ))
+        apply_list.append(apply[0])
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
         act = 'RnE',
         name = name
     )
+
 def apply_dayduty():
     global today
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
-    req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
-    req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
-    if len(req_id_tuple) != 1:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id IN ? AND req_date >= ?", (str(req_id_tuple), today, ))
-    else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ", (req_ids[0]['req_id'], today, ))
+    req_ids = [list(i.values()[0]) for i in db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")]
+    apply_list = list()
+    for req_id in req_ids:
+        apply = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_id, ))
+        apply_list.append(apply[0])
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
