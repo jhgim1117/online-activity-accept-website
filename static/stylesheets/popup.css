@@ -61,5 +61,6 @@
 	height: 30px;
     top: 230px;
     right: 480px;
-	background: red;
+	/* background: red; */
+	background-color:transparent;
 }
