@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, abort
 from lib import db
-from route import student, admin, teacher
+from route import student, admin, teacher, announce
 app = Flask(__name__)
 app.secret_key = 'asdfasdfadf'
 @app.route("/")
@@ -48,6 +48,10 @@ def teacher_act(act = None):
     elif request.method == 'POST':
         
         return teacher.treat_teacher(act, False)
+
+@app.route("/announce", methods=['GET'])
+def announce_get():
+    return announce.announce_board()
 
 if __name__ == '__main__':
     app.run(debug=True)

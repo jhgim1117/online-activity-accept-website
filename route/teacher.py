@@ -1,6 +1,10 @@
 from flask import render_template, session, abort, request, flash, redirect
 from lib import db
 import bcrypt
+import datetime
+
+now = datetime.datetime.today()
+today = str(now.year)+'-'+str(now.month)+'-'+str(now.day)
 
 def teacher_get():
     name=''
@@ -104,7 +108,7 @@ def config_post():
     if new_pw == renew_pw: #비번 확인
         if bcrypt.checkpw(present_pw.encode('utf-8'),hashed_pw.encode('utf-8')): #DB 기존 비번과 입력한 비번이 일치하면 DB업데이트 
             hashed_pw = bcrypt.hashpw(new_pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-            db.db_execute("UPDATE teacher SET name=?, nickname=?, pw=? WHERE id=?", (name, nickname, hashed_pw, teacher_id, ))
+            db.db_execute("UPDATE teacher SET name=?, nickname=?, pw=? WHERE teacher_id=?", (name, nickname, hashed_pw, teacher_id, ))
             flash("성공적으로 변경되었습니다!")
             return redirect("/teacher/config")
         else:
@@ -130,45 +134,60 @@ def apply_index():
     )
 
 def apply_homeroom():
+    global today
+    teacher_id = session['teacher_id']
+    teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
+    name = teacher_info['name']
     homeroom = db.db_execute('SELECT homeroom FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['homeroom']
     req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
     req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
     if len(req_id_tuple) != 1:
-        apply_list = db.db_execute(f"SELECT * FROM apply WHERE req_id IN {req_id_tuple} AND num/100=?", (int(homeroom), ))
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id IN ? AND num/100=? AND req_date >= ?", (int(homeroom), str(req_id_tuple), today, ))
     else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_ids[0]['req_id'], ))
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ?", (req_ids[0]['req_id'], today))
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
-        act = 'homeroom'
+        act = 'homeroom',
+        name = name
     )
 
 def apply_RnE():
+    global today
+    teacher_id = session['teacher_id']
+    teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
+    name = teacher_info['name']
     subject_id = db.db_execute('SELECT subject_id FROM teacher WHERE teacher_id=?', (session['teacher_id'], ))[0]['subject_id']
     user_ids = db.db_execute("SELECT user_id FROM rne WHERE rne_id=?", (subject_id, ))
     user_id_tuple = tuple([list(i.values())[0] for i in user_ids])
     req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
     req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
     if len(req_id_tuple) != 1:
-        apply_list = db.db_execute(f"SELECT * FROM apply WHERE req_student IN {user_id_tuple} AND req_id IN {req_id_tuple}")
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_student IN ? AND req_id IN ? AND req_date >= ?", (str(user_id_tuple), str(req_id_tuple), today, ))
     else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_ids[0]['req_id'], ))
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ?", (req_ids[0]['req_id'], today, ))
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
-        act = 'RnE'
+        act = 'RnE',
+        name = name
     )
 def apply_dayduty():
+    global today
+    teacher_id = session['teacher_id']
+    teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
+    name = teacher_info['name']
     req_ids = db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")
     req_id_tuple = tuple([list(i.values())[0] for i in req_ids])
     if len(req_id_tuple) != 1:
-        apply_list = db.db_execute(f'SELECT * FROM apply WHERE req_id IN {req_id_tuple}')
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id IN ? AND req_date >= ?", (str(req_id_tuple), today, ))
     else:
-        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_ids[0]['req_id'], ))
+        apply_list = db.db_execute("SELECT * FROM apply WHERE req_id=? AND req_date >= ", (req_ids[0]['req_id'], today, ))
     return render_template(
         '/teacher/apply/list.html',
         apply_list = apply_list,
-        act = 'dayduty'
+        act = 'dayduty',
+        name = name
     )
 
 def apply_allow():

@@ -33,7 +33,7 @@ def show_table_info(table):
 if __name__ == '__main__':
     
     # create table
-    # db_execute("CREATE TABLE student(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
+    # db_execute("CREATE TABLE student(student_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, num INTEGER NOT NULL, generation INTEGER NOT NULL, nickname TEXT NOT NULL, pw TEXT NOT NULL)")
     # db_execute("CREATE TABLE apply(req_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, datetime DATETIME NOT NULL, req_student INTEGER NOT NULL, req_date DATE NOT NULL, req_start_time TIME NOT NULL, req_end_time TIME NOT NULL, place TEXT NOT NULL, reason TEXT NOT NULL, teacher_id INTEGER NOT NULL)")
     # db_execute("CREATE TABLE student_token(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, generation INTEGER NOT NULL, num INTEGER NOT NULL, token INTEGER NOT NULL)")
     # db_execute("CREATE TABLE admin(admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, student_id INTEGER NOT NULL)")
@@ -42,4 +42,5 @@ if __name__ == '__main__':
     # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
     # show_db_info('confirmed_apply')
-    check_table_info('teacher')
+    # show_table_info('admin')
+    print(db_execute("SELECT req_id FROM confirmed_apply WHERE allowed=1"))

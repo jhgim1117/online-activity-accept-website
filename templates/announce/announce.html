@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>활동 승인 확인</title>
+</head>
+<body>
+    <table border=1>
+            <thead>
+                <tr>
+                    <th colspan="6">활동 승인 목록</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th colspan="2">승인된 활승</th>
+                    <th colspan="2">거부된 활승</th>
+                    <th colspan="2">미확인된 활승</th>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td>활동 날짜</td>
+                    <td>이름</td>
+                    <td>활동 날짜</td>
+                    <td>이름</td>
+                    <td>활동 날짜</td>
+                </tr>
+                {% for allowed_apply in allowed_apply_list %}
+                    <tr>
+                        <td>{{ allowed_apply['name'] }}</td>
+                        <td>{{ allowed_apply['req_date'] }}</td>
+                    </tr>   
+                {% endfor %}
+
+                {% for rejected_apply in rejected_apply_list %}
+                    <tr>
+                        <td>{{ rejected_apply['name'] }}</td>
+                        <td>{{ rejected_apply['req_date'] }}</td>
+                    </tr>
+                {% endfor %}
+
+                {% for not_confirmed_apply in not_confirmed_apply_list %}
+                    <tr>
+                        <td>{{ not_confirmed_apply['name'] }}</td>
+                        <td>{{ not_confirmed_apply['req_date'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</body>
+</html>

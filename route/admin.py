@@ -37,7 +37,7 @@ def student_token_delete():
 
 def student_delete():
     id = request.form['id']
-    db.db_execute("DELETE FROM student WHERE id=?", (id, ))
+    db.db_execute("DELETE FROM student WHERE student_id=?", (id, ))
     return redirect("/admin/student/list")
 
 def teacher_token_post():
@@ -59,7 +59,7 @@ def teacher_token_list():
 
 def teacher_token_delete():
     id = request.form['id']
-    db.db_execute("DELETE FROM teacher_token WHERE id=?", (id, ))
+    db.db_execute("DELETE FROM teacher_token WHERE teacher_id=?", (id, ))
     return redirect('/admin/teacher/token/list')
 
 def teacher_delete():
