@@ -180,7 +180,7 @@ def apply_dayduty():
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
-    req_ids = [list(i.values()[0]) for i in db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")]
+    req_ids = [list(i.values())[0] for i in db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")]
     apply_list = list()
     for req_id in req_ids:
         apply = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_id, ))
