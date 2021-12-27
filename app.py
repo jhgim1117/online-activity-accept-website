@@ -9,7 +9,7 @@ def index():
     if 'user_id' in session:
         user_id=session['user_id']
         nickname = db.db_execute('SELECT nickname FROM user WHERE id=?', (user_id,))[0]['nickname']
-    return render_template('index.html', nicdkname=nickname)
+    return render_template('index.html', nickname=nickname)
 
 @app.route("/student", methods = ['GET'])
 def student_site():
