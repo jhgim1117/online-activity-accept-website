@@ -60,13 +60,6 @@ def teacher_act(act = None):
 def announce_get():
     return announce.announce_board()
 
-@app.route("/signout", methods=['GET', 'POST'])
-def signout():
-    if request.method == 'GET':
-        return member.signout_get()
-    else:
-        return member.signout_post()
-
 
 if __name__ == '__main__':
     app.run(debug=True)  
