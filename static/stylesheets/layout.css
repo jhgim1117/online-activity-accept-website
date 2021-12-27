@@ -1,0 +1,338 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Noto Sans CJK KR', 'Noto Sans KR', Arial, sans-serif;
+    font-weight: 500;
+}
+
+a {
+    color: black;
+    text-decoration-line: none;
+}
+
+a:hover {
+    color: #19bbfc;
+}
+
+ul {
+    list-style: none;
+}
+
+#top-bar {
+    background-color: black;
+    color: white;
+    font-weight: 900;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+}
+
+#top-bar-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+}
+
+#top-bar-right {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+#top-bar-btn {
+    background-color: rgba( 255, 255, 255, 0 );
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#side-bar {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#side-bar-frame {
+    display: inline-block;
+    width: 200px;
+    margin: 20px 10px;
+    position: absolute;
+}
+
+.side-bar-element {
+    padding: 5px 10px 5px 5px;
+}
+
+.side-bar-element:hover {
+    color: #19bbfc;
+}
+
+#side-bar-selected-element {
+    background-color: #85dcff;
+    border-radius: 0px 10px 10px 0px;
+    border-left: 2px solid #19bbfc;
+}
+
+.popup-btn {
+    cursor: pointer;
+    user-select:none;
+}
+
+.popup-box {
+    position: absolute;
+    box-shadow: 2px 2px 10px rgb(0 0 0 / 40%);
+    display: none;
+    opacity: 0;
+    background-color: white;
+    z-index: 6;
+}
+
+.popup-dim {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    background-color: gray;
+    opacity: 0.7;
+    display: none;
+    cursor: pointer;
+}
+
+#user-list {
+    top: 60px;
+    right: 10px;
+    width: 250px;
+}
+
+.user-list-element {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#user-list-ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.user-list-li {
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.user-list-li:hover {
+    background: #85dcff;
+}
+
+#main-frame {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    padding-bottom: 20%;
+}
+
+#main-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    min-height: 100%;
+    text-align: center;
+}
+
+.text-field {
+    height: 54px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+    z-index: 0;
+    width: 100%;
+}
+
+.text-input {
+    box-sizing: border-box;
+    width: 250px;
+    height: 100%;
+    text-align: left;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, .38);
+    padding: 12px 16px 14px;
+    font-size: 16px;
+    font-family: 'Noto Sans CJK KR', 'Noto Sans KR', Arial, sans-serif;
+    font-weight: 400;
+    background: none;
+    appearance: none;
+    z-index: 1;
+    outline: none;
+}
+
+.text-submit-btn {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #19bbfc;
+    border: none;
+    color: white;
+    z-index: 3;
+    border-radius: 0 4px 4px 0;
+}
+
+.text-input:hover {
+	border-color: rgba(0, 0, 0, .87);
+}
+
+.text-field--focused .text-input {
+    border-color: #19bbfc !important;
+    border-width: 2px;
+}
+
+.text-field--focused {
+    color: #19bbfc;
+}
+
+.text-field--error .text-input {
+    border-color: #ff00009a !important;
+    border-width: 2px;
+    color: #ff00009a;
+    font-weight: 500;
+}
+
+.text-input-label {
+    box-sizing: border-box;
+    color: rgba(0,0,0,.6);
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    left: 4px;
+    right: initial;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    text-align: left;
+    cursor: text;
+    transform-origin: left top;
+}
+
+.text-field--focused .text-input-label {
+    color: #199fd4;
+}
+
+input[type=radio] {
+    display: none;
+    margin: 10px;
+}
+
+input[type=radio] + label {
+    color: #0091ff;
+    border: 2px solid #0091ff;
+    padding: 10px 20px 10px 20px;
+    width: 100px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: 5px;
+}
+
+input[type=radio] + label:hover {
+    background-color: #85dcff48;
+    cursor: pointer;
+}
+
+input[type=radio]:checked + label {
+    background-color: transparent;
+    background-color:#0091ff;
+    color:white;
+}
+
+.item-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-field--error .text-submit-btn {
+    background-color: #ff00009a;
+}
+
+:hover {
+    transition: all 0.3s;
+}
+
+.user-list-li {
+    color: black;
+    display: block;
+}
+
+#alert-box {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 10px;
+    width: 400px;
+    height: 100px;
+    margin: auto;
+}
+
+#alert-content {
+    color: red;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.submit-btn {
+    cursor: pointer;
+    color: black;
+    border: 2px solid black;
+    background-color: transparent;
+    width: 100px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    margin: 10px;
+}
+
+.radio-select {
+    display: flex;
+    flex-direction: row;
+}
+
+table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+tr{
+    border: 0;
+    border-top: 0.5px solid black;
+}
+
+td {
+    color: black;
+    border: 0;
+    padding: 2px;
+}
