@@ -21,9 +21,6 @@ def student_site():
 def student_act(act = None):
     if 'teacher_id' in session:
         abort(403)
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
     if request.method == 'GET':
         return student.treat_student(act, True)
     elif request.method == 'POST':
