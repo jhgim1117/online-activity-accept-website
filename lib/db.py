@@ -42,5 +42,5 @@ if __name__ == '__main__':
     # db_execute('ALTER TABLE apply ADD COLUMN name TEXT/')
     # print(db_execute("SELECT * FROM student WHERE num/100=?", (22, )))
     # show_db_info('confirmed_apply')
-    # show_table_info('admin')
-    db_execute("INSERT INTO admin (student_id) VALUES (?)", (2, ))
+    show_table_info('admin')
+    # check_table_info("admin")

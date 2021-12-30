@@ -228,46 +228,54 @@ def treat_teacher(act, is_get):
         else:
             return abort(405)
     elif act == "config":
-        if is_get:
-            return config_get()
-        else:
-            return config_post()
-    elif path_list[0] == 'apply':
-        if len(path_list) == 1:
+        if 'teacher_id' in session:
             if is_get:
-                return apply_index()
+                return config_get()
             else:
-                return abort(405)
-        elif path_list[1] == 'homeroom':
-            if len(path_list) == 2:
+                return config_post()
+        else:
+            flash('로그인 후 이용해주시길 바랍니다.')
+            return redirect('/teacher/login')
+    elif path_list[0] == 'apply':
+        if 'teacher_id' in session:
+            if len(path_list) == 1:
                 if is_get:
-                    return apply_homeroom()
+                    return apply_index()
                 else:
                     return abort(405)
-            elif path_list[2] == 'allow':
-                apply_allow()
-                return redirect('/teacher/apply/homeroom')
-            elif path_list[2] == 'reject':
-                apply_reject()
-                return redirect('/teacher/apply/homeroom')
-        elif path_list[1] == 'RnE':
-            if len(path_list) == 2:
-                if is_get:
-                    return apply_RnE()
-                else:
-                    return abort(405)
-            elif path_list[2] == 'allow':
-                apply_allow()
-                return redirect('/teacher/apply/RnE')
-            elif path_list[2] == 'reject':
-                apply_reject()
-                return redirect('/teacher/apply/RnE')
-        elif path_list[1] == 'dayduty':
-            if len(path_list) == 2:
-                return apply_dayduty()
-            elif path_list[2] == 'allow':
-                apply_allow()
-                return redirect('/teacher/apply/dayduty')
-            elif path_list[2] == 'reject':
-                apply_reject()
-                return redirect('/teacher/apply/dayduty')
+            elif path_list[1] == 'homeroom':
+                if len(path_list) == 2:
+                    if is_get:
+                        return apply_homeroom()
+                    else:
+                        return abort(405)
+                elif path_list[2] == 'allow':
+                    apply_allow()
+                    return redirect('/teacher/apply/homeroom')
+                elif path_list[2] == 'reject':
+                    apply_reject()
+                    return redirect('/teacher/apply/homeroom')
+            elif path_list[1] == 'RnE':
+                if len(path_list) == 2:
+                    if is_get:
+                        return apply_RnE()
+                    else:
+                        return abort(405)
+                elif path_list[2] == 'allow':
+                    apply_allow()
+                    return redirect('/teacher/apply/RnE')
+                elif path_list[2] == 'reject':
+                    apply_reject()
+                    return redirect('/teacher/apply/RnE')
+            elif path_list[1] == 'dayduty':
+                if len(path_list) == 2:
+                    return apply_dayduty()
+                elif path_list[2] == 'allow':
+                    apply_allow()
+                    return redirect('/teacher/apply/dayduty')
+                elif path_list[2] == 'reject':
+                    apply_reject()
+                    return redirect('/teacher/apply/dayduty')
+        else:
+            flash('로그인 후 이용해주시길 바랍니다.')
+            return redirect('/teacher/login')

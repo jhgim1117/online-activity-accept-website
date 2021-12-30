@@ -74,6 +74,26 @@ def teacher_list():
         teacher_list = teacher_list_in_db
     )
 
+def nominate_get():
+    return render_template('/admin/nominate.html')
+
+def nominate_post():
+    id = request.form['id']
+    student_id_list = db.db_execute("SELECT student_id FROM student WHERE nickname=?", (id, ))
+    if not len(student_id_list):
+        flash('해당 ID가 존재하지 않습니다.')
+        return redirect('/admin/nominate')
+    else:
+        student_id = student_id_list[0]['student_id']
+    is_admin = bool(len(db.db_execute("SELECT * FROM admin WHERE student_id=?", (student_id, ))))
+    if is_admin:
+        flash('이미 관리자로 지정되어있습니다.')
+        return redirect('/admin/nominate')
+    else:
+        db.db_execute('INSERT INTO admin (student_id) VALUES (?)', (student_id, ))
+    return redirect('/admin/nominate')
+    
+
 def treat_admin(act, is_get):
     if not 'admin' in session:
         return abort(403)
@@ -140,4 +160,9 @@ def treat_admin(act, is_get):
                 return abort(405)
             else:
                 return teacher_delete()
+    elif path_list[0] == 'nominate':
+        if is_get:
+            return nominate_get()
+        else:
+            return nominate_post()
     return abort(404)

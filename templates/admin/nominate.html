@@ -1,0 +1,16 @@
+{% extends '/admin/layout.html' %}
+{% block title %}관리자 지정 - {% endblock %}
+
+{% block contents %}
+    <div>
+        <form method="post" action="/admin/nominate">
+        <div>
+            <label for="id">지정 대상 ID</label>
+            <input type="text" name="id" id="id">
+        </div>
+        <div>
+            <input type="submit" name="button" id="nominate button" value="지정">
+        </div>
+        </form>
+    </div>
+{% endblock %}

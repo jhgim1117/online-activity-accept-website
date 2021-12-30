@@ -12,10 +12,13 @@
       </script>
       {% endif %}
     {% endwith %}
-    <link rel="stylesheet" href="../static/stylesheets/{% block css %}{% endblock %}.css">
+    <link rel="stylesheet" href="/static/stylesheets/layout.css">
+    <link rel="stylesheet" href="/static/stylesheets/{% block css %}{% endblock %}.css">
+    <link rel="stylesheet" href="/static/stylesheets/popup.css">
+</head>
 </head>
 <body>
-  <h1>관리자</h1>
+  <h1><a href="/admin">관리자</a></h1>
    
         <a href="/admin/student/list">학생 목록</a>
         <a href="/admin/student/token">토큰 발급</a>
@@ -23,6 +26,7 @@
         <a href="/admin/teacher/list">교사 목록</a>
         <a href="/admin/teacher/token">교사용 토큰 발급</a>
         <a href="/admin/teacher/token/list">교사 토큰 확인</a>
+        <a href="/admin/nominate">관리자 지정</a>
         <a href="/student">학생 페이지</a>
         {% block contents %}
     {% endblock %}
