@@ -2,10 +2,9 @@
 {% block title %}활승 신청 - {% endblock %}
 {% block js %}apply{% endblock %}
 {% block contents %}
+
     <div>
       <h1>활승 신청란</h1>
-    </div>
-    <div>
       <form method="post" action="/student/apply">
         <div>
           <label for="req_date"> 활승 날짜 </label>
@@ -21,8 +20,10 @@
         </div>
         <div>
           <label for="place"> 활승 장소 </label>
-          <input readonly id="placeView" name="place" id="place"></label>
-          <input type="button" value="열어주세요" class="place-select-button"  onsubmit="return false">
+
+          <span id="placeView"></span>
+          <input type="hidden" id="place" name="place">
+          <span class="place-select-button">선택</span>
         </div>
         <div>
           <label for="reason"> 활승 사유 </label>
@@ -57,7 +58,7 @@
 <span id="descView"></span>
         </div>
         <div class="btn_area"><!--버튼 영역-->
-          <input type="button" name="button" class="btn place-select-button" value="선택" onsubmit="return false">
+          <span class="btn place-confirm-button">선택</span>
           <!-- <button type="button" name="button" class="btn no">취소</button> -->
         </div>
       </div>

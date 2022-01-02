@@ -32,6 +32,7 @@
 
 
 .btn {
+	text-align:center;
 	float: left;
 	width: 100%;
 	height: 100%;
@@ -39,8 +40,6 @@
 	font-weight: bold;
 	border: 0;
 	background: pink;
-    /*button태그의 기본 속성 : box-sizing:border-box;
-    따라서 기본적으로 width값 안에 border영역까지 포함됨*/
 }
 
 .popup_dimmed {
