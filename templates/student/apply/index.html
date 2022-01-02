@@ -21,34 +21,12 @@
         </div>
         <div>
           <label for="place"> 활승 장소 </label>
-          <select name="place" id="place">
-            <option value="1f">1층</option>
-            <option value="2f">2층</option>
-            <option value="3f">3층</option>
-            <option value="4f">4층</option>
-          </select>
-          <!-- 뒤에 추가로 넣기 -->
-          <select name="place" id="place">
-            <option value="1f">1층</option>
-            <option value="2f">2층</option>
-            <option value="3f">3층</option>
-            <option value="4f">4층</option>
-          </select>
+          <input readonly id="placeView" name="place" id="place"></label>
           <input type="button" value="열어주세요" class="place-select-button"  onsubmit="return false">
         </div>
         <div>
           <label for="reason"> 활승 사유 </label>
           <input type="text" name="reason" id="reason" />
-        </div>
-        <div>
-          <label for="reason"> 신청할 쌤 </label>
-          <select name="teacher" id="teacher">
-            <option value="1">박명호T</option>
-            <option value="2">오성주T</option>
-            <option value="3">정리안T</option>
-            <option value="4">정연기T</option>
-            <option value="5">정태준T</option>
-          </select>
         </div>
         <div>
           <input type="submit" id="req_button" name="button" value="신청" />
@@ -68,9 +46,40 @@
           </div>
           <strong class="title">교내 평면도</strong>
           <p class="text">활승 장소를 클릭하세요</p>
-
-          <img id="schoolImg" src="../../static/files/tam123.PNG" style="width: 80%; height:auto;" >
-          <button class="ghostbtn">.</button>
+          
+  
+  <svg version="1.1" id="bon_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 600" style="enable-background:new 0 0 600 600;" xml:space="preserve">
+    <style type="text/css">
+      .clickable{fill:#fcf82156;stroke:#000000;}
+      .clickable:hover{fill:#fffb17}
+    </style>
+    <g id="v">
+    
+      <image style="overflow:visible;enable-background:new    ;" width="527" height="574" xlink:href="/static/files/bon1.png"  transform="matrix(0.9744 0 0 0.9744 44.2521 19.3542)">
+    </image>
+    <rect x="472.2" y="291.2" class="clickable" width="34.1" height="47.7"/>
+    <path class="clickable" d="M329.2,442.5l-18.9,42.9c0,0,12.5,5.9,29,9.9c16.7,4,31.6,6.5,31.6,6.5l10.2-45.2c0,0-11.8-2.6-23.5-5.8
+      C345.8,447.5,329.2,442.5,329.2,442.5z"/>
+    <path class="clickable" d="M292.3,427l-26.7,38.5c0,0,14.2,7.9,23.6,12.1c9.3,4.3,19.9,7.3,19.9,7.3l18.7-42.7c0,0-8.7-3.3-17-6.9
+      C302.5,431.7,292.3,427,292.3,427z"/>
+    <path class="clickable" d="M221.1,374.9l-34.1,33.5c0,0,11,12.6,35.1,30.4s42.1,26,42.1,26l26.7-38.6c0,0-20.3-10.6-37.2-23.4
+      C236.4,389.7,221.1,374.9,221.1,374.9z"/>
+    <path class="clickable" d="M182.4,329.8c0,0,3.5,4.9,8,10.9c4.6,6,9.4,11.6,9.4,11.6l-38,28.8c0,0-5.3-5.9-10.1-13.1
+      c-4.5-6.6-8.5-12.6-8.6-13L182.4,329.8z"/>
+    <path class="clickable" d="M110,294.3l43.2-17.3c0,0,3.4,9.8,12.3,25c10.3,17.7,16.1,26.8,16.1,26.8l-39.4,24.9c0,0-11.2-15.9-18.4-29.8
+      S110,294.3,110,294.3z"/>
+    <path class="clickable" d="M98.6,261.1c0,0,1.7,8.6,4,15.1c2.3,6.8,7,16.9,7,16.9l43.1-17.4c0,0-2-3.8-5.7-13.9
+      c-2.8-7.8-4.6-13.7-4.6-13.7L98.6,261.1z"/>
+    <path class="clickable" d="M141.8,247l-43.6,12.7c0,0-2.1-5.8-4.4-14.7c-2.4-8.9-3.1-17.2-3.1-17.2l44.8-8.9c0,0,0.3,3.7,3.2,16.1
+      C140.9,244.7,141.8,247,141.8,247z"/>
+    <path class="clickable" data-id="1" data-name="체력단련장" data-description="체력을 단련하는 곳이다." d="M85.7,190.3c2.5,31,4.8,36.2,4.7,36.2c0,0,45-8.9,45-8.9c0,0-1.9-8.6-2.9-27.3c-1-18.7-0.4-31.8-0.4-31.8
+      c0,0-47.2-0.2-47.3-0.2C84.9,158.3,83.3,159.3,85.7,190.3L85.7,190.3z"/>
+  </g>
+  <polygon class="clickable" points="388.1,158.3 459.2,158.3 459.2,187.2 506.3,187.2 506.3,223.4 472.2,223.4 472.2,339 388.1,339 "/>
+</svg>
+<span id="nameView"></span>
+<span id="descView"></span>
         </div>
         <div class="btn_area"><!--버튼 영역-->
           <input type="button" name="button" class="btn place-select-button" value="선택" onsubmit="return false">
@@ -79,4 +88,5 @@
       </div>
       <div class="popup_dimmed"></div> <!--반투명 배경-->
     </div>
+    
 {% endblock %}

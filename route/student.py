@@ -160,7 +160,7 @@ def apply_post():
     name = db.db_execute("SELECT name FROM student WHERE student_id=?", (req_student, ))[0]['name']
 
     # 빈칸 거르기
-    if not (req_date and req_start_time and req_end_time and place and reason and teacher):
+    if not (req_date and req_start_time and req_end_time and place and reason):
         flash('입력되지 않은 데이터가 있습니다.')
     req_date = datetime.date.fromisoformat(req_date)
     formatted_req_start_time = datetime.time.fromisoformat(req_start_time)
