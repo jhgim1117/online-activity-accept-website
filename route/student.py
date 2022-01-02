@@ -155,7 +155,6 @@ def apply_post():
     req_end_time = request.form['req_end_time']
     place = request.form['place']
     reason = request.form['reason']
-    teacher = request.form['teacher']
     num = db.db_execute("SELECT num FROM student WHERE student_id=?", (req_student, ))[0]['num']
     name = db.db_execute("SELECT name FROM student WHERE student_id=?", (req_student, ))[0]['name']
 
