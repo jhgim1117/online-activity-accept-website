@@ -1,17 +1,28 @@
 function toggleImgBon1() { //본관1 사진 변경 함수
-    document.getElementById("schoolImg").src = "../../static/files/bon1.PNG";
+    hideAllFloors();
+    document.getElementById('bon1').style.display="block";
 }
 function toggleImgBon2() { //본관2 사진 변경 함수
-    document.getElementById("schoolImg").src = "../../static/files/bon2.PNG";
+    hideAllFloors();
+    document.getElementById('bon2').style.display="block";
 }
 function toggleImgBon3() { //본관3 사진 변경 함수
-    document.getElementById("schoolImg").src = "../../static/files/bon3.PNG";
+    hideAllFloors();
+    document.getElementById('bon3').style.display="block";
 }
 function toggleImgBon4() { //본관4 사진 변경 함수
-    document.getElementById("schoolImg").src = "../../static/files/bon4.PNG";
+    hideAllFloors();
+    document.getElementById('bon4').style.display="block";
 }
 function toggleImgTam123() { //탐구관123 사진 변경 함수
-    document.getElementById("schoolImg").src = "../../static/files/tam123.PNG";
+    hideAllFloors();
+    document.getElementById('tam123').style.display="block";
+}
+
+function hideAllFloors(){
+    for(const elem of document.getElementsByClassName('floor')){
+        elem.style.display='none';
+    }
 }
 function viewLayer(){
     document.getElementById('place-select-popup').style.display="inline";

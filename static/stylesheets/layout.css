@@ -13,6 +13,7 @@ body {
 a {
     color: black;
     text-decoration-line: none;
+    border-radius:3px;
 }
 
 a:hover {
