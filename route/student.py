@@ -161,6 +161,7 @@ def apply_post():
     # 빈칸 거르기
     if not (req_date and req_start_time and req_end_time and place and reason):
         flash('입력되지 않은 데이터가 있습니다.')
+        return redirect('/student/apply')
     req_date = datetime.date.fromisoformat(req_date)
     formatted_req_start_time = datetime.time.fromisoformat(req_start_time)
     formatted_req_end_time = datetime.time.fromisoformat(req_end_time)
@@ -176,7 +177,7 @@ def choice_place():
             6:"멀티미디어실", 7:"서버실", 8:"교장실", 9:"행정실", 10:"숙직실",\
             11:"관리실", 12:"행정실장실", 13:"1층진자실", 14:"악기보관실", 15:"음악실", \
             16:"연습실1", 17:"연습실2", 18:"R&E 1", 19:"R&E 2", 20:"R&E 3", \
-            21:"R&E 4", 22:"R&E 5", 23:"R&E 6", 78:"R&E 7", 79:"R&E 8"}
+            21:"R&E 4", 22:"R&E 5", 23:"R&E 6", 78:"R&E 7", 79:"R&E 8", 80:"문서고", 81:"역사관"}
 
     two_floor = {24:"3-3", 25:"3-4", 26:"2-1", 27:"1학년실", 26:"방송실",\
             28:"회의실", 29:"교무실", 30:"생물연구실", 31:"생물R&E실", 32:"생물실험실",\
