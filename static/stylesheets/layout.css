@@ -17,6 +17,7 @@ a {
 
 a:hover {
     color: #19bbfc;
+    box-shadow: 0px 0px 10px 2px #000000;
 }
 
 ul {
@@ -275,10 +276,10 @@ form {
 }
 
 :hover {
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.2s;
 }
 :link{
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.2s;
 }
 
 .user-list-li {
