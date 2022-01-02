@@ -152,7 +152,7 @@ def apply_homeroom():
         name = name
     )
 
-def apply_RnE():
+def apply_RnE(): #rne table에 있는 student_id랑 student table id 랑 안 맞음 -> db 초기화하면 괜찮아짐
     global today
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
