@@ -168,7 +168,7 @@ def apply_post():
     if formatted_req_start_time >= formatted_req_end_time:
         flash('활동 시간이 올바르지 않습니다.')
         return redirect('/student/apply', name=name)
-    db.db_execute("INSERT INTO apply (datetime, req_student, req_date, req_start_time, req_end_time, place, reason, teacher_id, num, name) values ((SELECT datetime('now', '+9 hours')), ?, ?, ?, ?, ?, ?, ?, ?, ?);", (req_student, req_date, req_start_time, req_end_time, place, reason, teacher, num, name))
+    db.db_execute("INSERT INTO apply (datetime, req_student, req_date, req_start_time, req_end_time, place, reason, num, name) values ((SELECT datetime('now', '+9 hours')), ?, ?, ?, ?, ?, ?, ?, ?, ?);", (req_student, req_date, req_start_time, req_end_time, place, reason, num, name))
     flash('활승 신청이 완료되었습니다.')
     return redirect("/student/apply")
 
