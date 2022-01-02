@@ -25,3 +25,17 @@ function ViewLayer(){
 Array.from(document.getElementsByClassName("place-select-button")).forEach(element => {
     element.addEventListener('click', ViewLayer)
 })
+
+const nameView = document.getElementById('nameView');
+const descView = document.getElementById('descView');
+const placeView = document.getElementById('placeView');
+let selectedId=null;
+for(let obj of document.getElementsByClassName('clickable')){
+    
+    obj.addEventListener('click',(event)=>{
+        nameView.innerText=event.target.dataset.name;
+        descView.innerText=event.target.dataset.description;
+        selectedId =event.target.dataset.id;
+        placeView.value=event.target.dataset.name;
+    })
+}
