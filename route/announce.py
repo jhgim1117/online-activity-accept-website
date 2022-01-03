@@ -3,7 +3,7 @@ import datetime
 from lib import db
 
 now = datetime.datetime.today()
-today = str(now.year)+'-'+str(now.month)+'-'+str(now.day)
+today = str(now.year)+'-'+'0'*(2-len(str(now.month)))+str(now.month)+'-'+'0'*(2-len(str(now.day)))+str(now.day)
 
 def announce_board():
     global today

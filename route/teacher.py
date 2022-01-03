@@ -4,7 +4,30 @@ import bcrypt
 import datetime
 
 now = datetime.datetime.today()
-today = str(now.year)+'-'+str(now.month)+'-'+str(now.day)
+today = str(now.year)+'-'+'0'*(2-len(str(now.month)))+str(now.month)+'-'+'0'*(2-len(str(now.day)))+str(now.day)
+
+place = {1:"체력단련장", 2:"정보체육 연구실", 3:"정보R&E실", 4:"입학 사정관실", 5:"진로진학상담실",\
+        6:"멀티미디어실", 7:"서버실", 8:"교장실", 9:"행정실", 10:"숙직실",\
+        11:"관리실", 12:"행정실장실", 13:"1층진자실", 14:"악기보관실", 15:"음악실", \
+        16:"연습실1", 17:"연습실2", 18:"R&E 1", 19:"R&E 2", 20:"R&E 3", \
+        21:"R&E 4", 22:"R&E 5", 23:"R&E 6", 78:"R&E 7", 79:"R&E 8", 80:"문서고", 81:"역사관",\
+
+        24:"3-3", 25:"3-4", 26:"2-1", 27:"1학년실", 82:"방송실",\
+        28:"회의실", 29:"교무실", 30:"생물연구실", 31:"생물R&E실", 32:"생물실험실",\
+        33:"전자현미경실", 34:"생장실", 35:"화학실험실", 36:"화학R&E실", 37:"화학연구실",\
+
+        38:"2-5", 39:"2-4", 40:"2-3", 41:"세미나실", 42:"학생회실",\
+        43:"2-2", 44:"진학실", 45:"3층진자실", 46:"2학년실", 47:"지구과학연구실",\
+        48:"지구과학R&E실", 49:"지구과학실험실", 50:"국어사회연구실", 51:"물리실험실", 52:"물리R&E실",\
+        53:"물리연구실",\
+
+        54:"1-5", 55:"1-4", 56:"1-3", 57:"세미나실", 58:"사진동아리방",\
+        59:"1-2", 60:"1-1", 61:"보건실", 62:"소강당", 63:"수학연구실2",\
+        64:"영어과 사무실", 65:"영어전용교실", 66:"외국어과연구실", 67:"수학3실", 68:"수학2실",\
+        69:"수학1실", 70:"수학연구실1",\
+        
+        71:"다용도실", 72:"도서관", 73:"3학년학습실", 74:"컴퓨터실", 75:"3-1",\
+        76:"3학년실", 77:"3-2", -1:"기숙사"}
 
 def teacher_get():
     name=''
@@ -134,7 +157,7 @@ def apply_index():
     )
 
 def apply_homeroom():
-    global today
+    global today, place
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
@@ -149,11 +172,12 @@ def apply_homeroom():
         '/teacher/apply/list.html',
         apply_list = apply_list,
         act = 'homeroom',
-        name = name
+        name = name,
+        place = place
     )
 
 def apply_RnE(): #rne table에 있는 student_id랑 student table id 랑 안 맞음 -> db 초기화하면 괜찮아짐
-    global today
+    global today, place
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
@@ -172,15 +196,16 @@ def apply_RnE(): #rne table에 있는 student_id랑 student table id 랑 안 맞
         '/teacher/apply/list.html',
         apply_list = apply_list,
         act = 'RnE',
-        name = name
+        name = name,
+        place = place
     )
 
 def apply_dayduty():
-    global today
+    global today, place
     teacher_id = session['teacher_id']
     teacher_info = db.db_execute("SELECT * FROM teacher WHERE teacher_id=?", (teacher_id, ))[0]
     name = teacher_info['name']
-    req_ids = [list(i.values())[0] for i in db.db_execute("SELECT req_id FROM apply EXCEPT SELECT req_id FROM confirmed_apply")]
+    req_ids = [list(i.values())[0] for i in db.db_execute("SELECT req_id FROM apply WHERE req_date>=? EXCEPT SELECT req_id FROM confirmed_apply", (today, ))]
     apply_list = list()
     for req_id in req_ids:
         apply = db.db_execute("SELECT * FROM apply WHERE req_id=?", (req_id, ))
@@ -189,7 +214,8 @@ def apply_dayduty():
         '/teacher/apply/list.html',
         apply_list = apply_list,
         act = 'dayduty',
-        name = name
+        name = name,
+        place = place
     )
 
 def apply_allow():

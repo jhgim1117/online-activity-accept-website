@@ -32,7 +32,7 @@
                     <td>{{ apply['req_date'] }}</td>
                     <td>{{ apply['req_start_time'] }}</td>
                     <td>{{ apply['req_end_time'] }}</td>
-                    <td>{{ apply['place'] }}</td>
+                    <td>{{ place[apply['place']] }}</td>
                     <td>{{ apply['reason'] }}</td>
                     <td>
                         <form action="/teacher/apply/{{ act }}/allow" method="POST">

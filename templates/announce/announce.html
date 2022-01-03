@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>활동 승인 확인</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}온라인 활승</title>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <script type="text/javascript">
+            alert("{{messages[-1]}}");
+          </script>
+          {% endif %}
+        {% endwith %}
+        <link rel="stylesheet" href="/static/stylesheets/layout.css">
+        <link rel="stylesheet" href="/static/stylesheets/{% block css %}{% endblock %}.css">
+        <link rel="stylesheet" href="/static/stylesheets/popup.css">
+    </head>
 <body>
+    <style>
+        td, th {
+            border: 1px solid black;
+        }
+    </style>
     <table border=1>
             <thead>
                 <tr>
